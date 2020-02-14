@@ -1,0 +1,4 @@
+rootProject.name = 'InjKit'
+include 'GradlePlugin'
+include 'CommandLineClient'
+include 'TransformCore'

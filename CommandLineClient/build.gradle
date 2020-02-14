@@ -1,0 +1,10 @@
+apply plugin: 'java'
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    compile project(':TransformCore')
+    testCompile group: 'com.google.truth', name: 'truth', version: '0.42'
+}
