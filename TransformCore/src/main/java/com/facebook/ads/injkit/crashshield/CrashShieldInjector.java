@@ -74,7 +74,7 @@ class CrashShieldInjector extends BaseInjector {
                 "com/facebook/ads/internal/shield/SafeLinearLayout");
 
         IGNORED_PACKAGES = new ArrayList<>();
-        IGNORED_PACKAGES.add("com.facebook.ads.internal.util.reporting");
+        IGNORED_PACKAGES.add("com.facebook.ads.internal.debuglogging");
     }
 
     private CrashShieldInjector(
