@@ -56,6 +56,25 @@ public class CrashShieldRunnableInjectionTest {
         assertFalse(getBooleanFieldValue(instance, "isAfterException"));
     }
 
+    @Test
+    public void run_throwsException_shouldNotCatchException() throws Exception {
+        ClassLoader classLoader = processClasses(FakeNoInjRunnable.class);
+        Class<?> cls = classLoader.loadClass(FakeNoInjRunnable.class.getName());
+
+        Runnable instance = (Runnable) cls.getConstructor().newInstance();
+        boolean throwsException = false;
+
+        try {
+            instance.run();
+        } catch (Throwable t) {
+            throwsException = true;
+        }
+
+        assertTrue(throwsException);
+        assertTrue(getBooleanFieldValue(instance, "isBeforeException"));
+        assertFalse(getBooleanFieldValue(instance, "isAfterException"));
+    }
+
     private ClassLoader processClasses(Class<?>... processingClass) throws Exception {
 
         for (Class clazz : processingClass) {
@@ -85,6 +104,23 @@ public class CrashShieldRunnableInjectionTest {
 
     @SuppressLint("ClownyBooleanExpression")
     public static class FakeRunnable implements Runnable {
+
+        public boolean isBeforeException = false;
+        public boolean isAfterException = false;
+
+        @Override
+        public void run() {
+            isBeforeException = true;
+            if (true) {
+                throw new RuntimeException("run() exception");
+            }
+            isAfterException = true;
+        }
+    }
+
+    @SuppressLint("ClownyBooleanExpression")
+    @FakeDoNotHandleExceptionAnnotation
+    public static class FakeNoInjRunnable implements Runnable {
 
         public boolean isBeforeException = false;
         public boolean isAfterException = false;

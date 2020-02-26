@@ -74,7 +74,6 @@ class CrashShieldInjector extends BaseInjector {
                 "com/facebook/ads/internal/shield/SafeLinearLayout");
 
         IGNORED_PACKAGES = new ArrayList<>();
-        IGNORED_PACKAGES.add("com.facebook.ads.internal.debuglogging");
     }
 
     private CrashShieldInjector(
@@ -187,14 +186,15 @@ class CrashShieldInjector extends BaseInjector {
                 }
             }
 
-            if (CrashShieldViewClassFilter.isAutoProcessedMethod(method, clsNode, model)) {
-                injectHandleThrowable(clsNode, method);
-                continue;
-            }
-
             FindAndRemoveAnnotationResult methodOp =
                     findAndRemoveAnnotation(method.visibleAnnotations, method.invisibleAnnotations)
                             .or(defaultOp);
+
+            if (CrashShieldViewClassFilter.isAutoProcessedMethod(method, clsNode, model) &&
+                    methodOp != FindAndRemoveAnnotationResult.FOUND_NO_AUTO_HANDLE) {
+                injectHandleThrowable(clsNode, method);
+                continue;
+            }
 
             if (methodOp == FindAndRemoveAnnotationResult.FOUND_AUTO_HANDLE) {
                 injectHandleThrowable(clsNode, method);
