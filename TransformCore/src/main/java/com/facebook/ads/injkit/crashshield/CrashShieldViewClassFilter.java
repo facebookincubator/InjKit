@@ -26,12 +26,14 @@ public class CrashShieldViewClassFilter {
     private static final String VIEW_INAME = "android/view/View";
     private static final String VIEW_GROUP_INAME = "android/view/ViewGroup";
     private static final String ASYNC_TASK_INAME = "android/os/AsyncTask";
+    private static final String HANDLER_INAME = "android/os/Handler";
 
     static {
         FILTER_AUTO_PROCESSED_INAMES = new HashSet<>();
         FILTER_AUTO_PROCESSED_INAMES.add("android/view/View$OnClickListener");
         FILTER_AUTO_PROCESSED_INAMES.add("java/lang/Runnable");
         FILTER_AUTO_PROCESSED_INAMES.add(ASYNC_TASK_INAME);
+        FILTER_AUTO_PROCESSED_INAMES.add(HANDLER_INAME);
         FILTER_AUTO_PROCESSED_METHODS = new HashMap<>();
         FILTER_AUTO_PROCESSED_METHODS.put("onClick", "(Landroid/view/View;)V");
         FILTER_AUTO_PROCESSED_METHODS.put("run", "()V");
@@ -39,6 +41,7 @@ public class CrashShieldViewClassFilter {
         FILTER_AUTO_PROCESSED_METHODS.put("doInBackground",
             "([Ljava/lang/Object;)Ljava/lang/Object;");
         FILTER_AUTO_PROCESSED_METHODS.put("onPostExecute", "(Ljava/lang/Object;)V");
+        FILTER_AUTO_PROCESSED_METHODS.put("handleMessage", "(Landroid/os/Message;)V");
 
         EXCLUDE_FROM_VIEW_FILTER_INAMES = new HashSet<>();
         EXCLUDE_FROM_VIEW_FILTER_INAMES.add("android/widget/AbsoluteLayout");
