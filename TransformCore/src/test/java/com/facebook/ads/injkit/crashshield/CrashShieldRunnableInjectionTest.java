@@ -3,14 +3,15 @@
 // This source code is licensed under the MIT license found in the
 // LICENSE file in the root directory of this source tree.
 
-
 package com.facebook.ads.injkit.crashshield;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import android.annotation.SuppressLint;
-
 import com.facebook.ads.injkit.TransformationEnvironment;
-
+import java.lang.reflect.Field;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -18,121 +19,113 @@ import org.junit.rules.TemporaryFolder;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 
-import java.lang.reflect.Field;
-
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
 @FakeHandleExceptionsAnnotation
 @RunWith(RobolectricTestRunner.class)
 @SuppressLint("CatchGeneralException")
 public class CrashShieldRunnableInjectionTest {
 
-    @Rule
-    public TemporaryFolder temporaryFolderRule = new TemporaryFolder();
+  @Rule public TemporaryFolder temporaryFolderRule = new TemporaryFolder();
 
-    private TransformationEnvironment environment;
+  private TransformationEnvironment environment;
 
-    @Before
-    public void before() throws Exception {
-        environment = new TransformationEnvironment(temporaryFolderRule);
+  @Before
+  public void before() throws Exception {
+    environment = new TransformationEnvironment(temporaryFolderRule);
+  }
+
+  @Test
+  public void run_throwsException_shouldCatchException() throws Exception {
+    ClassLoader classLoader = processClasses(FakeRunnable.class);
+    Class<?> cls = classLoader.loadClass(FakeRunnable.class.getName());
+
+    Runnable instance = (Runnable) cls.getConstructor().newInstance();
+
+    try {
+      instance.run();
+    } catch (Throwable t) {
+      fail();
     }
 
-    @Test
-    public void run_throwsException_shouldCatchException() throws Exception {
-        ClassLoader classLoader = processClasses(FakeRunnable.class);
-        Class<?> cls = classLoader.loadClass(FakeRunnable.class.getName());
+    assertTrue(getBooleanFieldValue(instance, "isBeforeException"));
+    assertFalse(getBooleanFieldValue(instance, "isAfterException"));
+  }
 
-        Runnable instance = (Runnable) cls.getConstructor().newInstance();
+  @Test
+  public void run_throwsException_shouldNotCatchException() throws Exception {
+    ClassLoader classLoader = processClasses(FakeNoInjRunnable.class);
+    Class<?> cls = classLoader.loadClass(FakeNoInjRunnable.class.getName());
 
-        try {
-            instance.run();
-        } catch (Throwable t) {
-            fail();
-        }
+    Runnable instance = (Runnable) cls.getConstructor().newInstance();
+    boolean throwsException = false;
 
-        assertTrue(getBooleanFieldValue(instance, "isBeforeException"));
-        assertFalse(getBooleanFieldValue(instance, "isAfterException"));
+    try {
+      instance.run();
+    } catch (Throwable t) {
+      throwsException = true;
     }
 
-    @Test
-    public void run_throwsException_shouldNotCatchException() throws Exception {
-        ClassLoader classLoader = processClasses(FakeNoInjRunnable.class);
-        Class<?> cls = classLoader.loadClass(FakeNoInjRunnable.class.getName());
+    assertTrue(throwsException);
+    assertTrue(getBooleanFieldValue(instance, "isBeforeException"));
+    assertFalse(getBooleanFieldValue(instance, "isAfterException"));
+  }
 
-        Runnable instance = (Runnable) cls.getConstructor().newInstance();
-        boolean throwsException = false;
+  private ClassLoader processClasses(Class<?>... processingClass) throws Exception {
 
-        try {
-            instance.run();
-        } catch (Throwable t) {
-            throwsException = true;
-        }
-
-        assertTrue(throwsException);
-        assertTrue(getBooleanFieldValue(instance, "isBeforeException"));
-        assertFalse(getBooleanFieldValue(instance, "isAfterException"));
+    for (Class clazz : processingClass) {
+      environment.addProcessingClass(clazz);
     }
 
-    private ClassLoader processClasses(Class<?>... processingClass) throws Exception {
+    return environment
+        .newLoadableConfigurationWriter()
+        .enable(new CrashShieldConfigurationWriter.Factory<>())
+        .noTransformAnnotation(FakeDoNotHandleExceptionAnnotation.class)
+        .transformAnnotation(FakeHandleExceptionsAnnotation.class)
+        .handler(FakeExceptionHandler.class)
+        .shouldProcessViews(true)
+        .processPackage(processingClass)
+        .done()
+        .transformAndLoad();
+  }
 
-        for (Class clazz : processingClass) {
-            environment.addProcessingClass(clazz);
-        }
-
-        return environment
-                .newLoadableConfigurationWriter()
-                .enable(new CrashShieldConfigurationWriter.Factory<>())
-                .noTransformAnnotation(FakeDoNotHandleExceptionAnnotation.class)
-                .transformAnnotation(FakeHandleExceptionsAnnotation.class)
-                .handler(FakeExceptionHandler.class)
-                .shouldProcessViews(true)
-                .processPackage(processingClass)
-                .done()
-                .transformAndLoad();
+  public static boolean getBooleanFieldValue(Object instance, String methodName) {
+    try {
+      Field field = instance.getClass().getField(methodName);
+      return (Boolean) field.get(instance);
+    } catch (Exception e) {
+      throw new RuntimeException(e);
     }
+  }
 
-    public static boolean getBooleanFieldValue(Object instance, String methodName) {
-        try {
-            Field field = instance.getClass().getField(methodName);
-            return (Boolean) field.get(instance);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+  @SuppressLint("ClownyBooleanExpression")
+  public static class FakeRunnable implements Runnable {
+
+    public boolean isBeforeException = false;
+    public boolean isAfterException = false;
+
+    @Override
+    public void run() {
+      isBeforeException = true;
+      if (true) {
+        throw new RuntimeException("run() exception");
+      }
+      isAfterException = true;
     }
+  }
 
-    @SuppressLint("ClownyBooleanExpression")
-    public static class FakeRunnable implements Runnable {
+  @SuppressLint("ClownyBooleanExpression")
+  @FakeDoNotHandleExceptionAnnotation
+  public static class FakeNoInjRunnable implements Runnable {
 
-        public boolean isBeforeException = false;
-        public boolean isAfterException = false;
+    public boolean isBeforeException = false;
+    public boolean isAfterException = false;
 
-        @Override
-        public void run() {
-            isBeforeException = true;
-            if (true) {
-                throw new RuntimeException("run() exception");
-            }
-            isAfterException = true;
-        }
+    @Override
+    public void run() {
+      isBeforeException = true;
+      if (true) {
+        throw new RuntimeException("run() exception");
+      }
+      isAfterException = true;
     }
-
-    @SuppressLint("ClownyBooleanExpression")
-    @FakeDoNotHandleExceptionAnnotation
-    public static class FakeNoInjRunnable implements Runnable {
-
-        public boolean isBeforeException = false;
-        public boolean isAfterException = false;
-
-        @Override
-        public void run() {
-            isBeforeException = true;
-            if (true) {
-                throw new RuntimeException("run() exception");
-            }
-            isAfterException = true;
-        }
-    }
-
+  }
 }

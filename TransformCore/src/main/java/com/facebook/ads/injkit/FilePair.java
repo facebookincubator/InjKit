@@ -3,7 +3,6 @@
 // This source code is licensed under the MIT license found in the
 // LICENSE file in the root directory of this source tree.
 
-
 package com.facebook.ads.injkit;
 
 import java.io.File;
@@ -35,12 +34,11 @@ public class FilePair {
     }
 
     if (input.isDirectory()) {
-      return Arrays
-              .stream(input.list())
-              .map(name -> new FilePair(new File(input, name), new File(output, name)))
-              .map(FilePair::expandIfDirectory)
-              .flatMap(Set::stream)
-              .collect(Collectors.toSet());
+      return Arrays.stream(input.list())
+          .map(name -> new FilePair(new File(input, name), new File(output, name)))
+          .map(FilePair::expandIfDirectory)
+          .flatMap(Set::stream)
+          .collect(Collectors.toSet());
     }
 
     return Collections.emptySet();
