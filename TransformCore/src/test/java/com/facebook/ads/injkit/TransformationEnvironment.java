@@ -5,6 +5,11 @@
 
 package com.facebook.ads.injkit;
 
+import static com.google.common.base.StandardSystemProperty.JAVA_CLASS_PATH;
+import static com.google.common.base.StandardSystemProperty.PATH_SEPARATOR;
+
+import com.google.common.base.Splitter;
+import com.google.common.collect.ImmutableList;
 import com.google.common.io.Files;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -44,45 +49,58 @@ public class TransformationEnvironment {
 
     // Hacky stuff: we assume the code is in a jar somewhere :) Find the jar containing the
     // class and add it to the input directory.
-    URLClassLoader urlLoader = (URLClassLoader) ldr;
-    URL[] urls = urlLoader.getURLs();
-    for (URL url : urls) {
-      if (url.getProtocol().equals("file")) {
-        String path = url.getPath();
-        path = URLDecoder.decode(path, "utf-8");
-        File pathFile = new File(path);
-        if (pathFile.isFile()) {
-          try (ZipFile zf = new ZipFile(pathFile)) {
-            ZipEntry entry = zf.getEntry(clsPath);
-            if (entry == null) {
-              continue;
-            }
 
-            File result = new File(inputDirectory, systemClsPath);
-            result.getParentFile().mkdirs();
-
-            try (FileOutputStream output = new FileOutputStream(result);
-                InputStream input = zf.getInputStream(entry)) {
-              byte[] buffer = new byte[4096];
-              int r;
-              while ((r = input.read(buffer)) > 0) {
-                output.write(buffer, 0, r);
-              }
-            }
-
-            return this;
-          }
-        } else if (pathFile.isDirectory()) {
-          File source = new File(pathFile, systemClsPath);
-          if (source.isFile()) {
-            File result = new File(inputDirectory, systemClsPath);
-            result.getParentFile().mkdirs();
-            Files.copy(source, result);
-            return this;
-          }
-        } else {
-          // Not a file or directory. Ignore.
+    ImmutableList.Builder<File> libraries = ImmutableList.builder();
+    ClassLoader systemClassLoader = ClassLoader.getSystemClassLoader();
+    if (ldr instanceof URLClassLoader) {
+      for (URL url : ((URLClassLoader) ldr).getURLs()) {
+        if (url.getProtocol().equals("file")) {
+          String path = url.getPath();
+          path = URLDecoder.decode(path, "utf-8");
+          libraries.add(new File(path));
         }
+      }
+    } else {
+      for (String path : Splitter.on(PATH_SEPARATOR.value()).split(JAVA_CLASS_PATH.value())) {
+        if (!path.endsWith(".jar")) {
+          continue;
+        }
+        libraries.add(new File(path));
+      }
+    }
+
+    for (File pathFile : libraries.build()) {
+      if (pathFile.isFile()) {
+        try (ZipFile zf = new ZipFile(pathFile)) {
+          ZipEntry entry = zf.getEntry(clsPath);
+          if (entry == null) {
+            continue;
+          }
+
+          File result = new File(inputDirectory, systemClsPath);
+          result.getParentFile().mkdirs();
+
+          try (FileOutputStream output = new FileOutputStream(result);
+              InputStream input = zf.getInputStream(entry)) {
+            byte[] buffer = new byte[4096];
+            int r;
+            while ((r = input.read(buffer)) > 0) {
+              output.write(buffer, 0, r);
+            }
+          }
+
+          return this;
+        }
+      } else if (pathFile.isDirectory()) {
+        File source = new File(pathFile, systemClsPath);
+        if (source.isFile()) {
+          File result = new File(inputDirectory, systemClsPath);
+          result.getParentFile().mkdirs();
+          Files.copy(source, result);
+          return this;
+        }
+      } else {
+        // Not a file or directory. Ignore.
       }
     }
 
