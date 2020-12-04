@@ -5,7 +5,11 @@
 
 package com.facebook.ads.injkit;
 
+import static com.google.common.base.StandardSystemProperty.JAVA_CLASS_PATH;
+import static com.google.common.base.StandardSystemProperty.PATH_SEPARATOR;
+
 import com.facebook.ads.injkit.model.Model;
+import com.google.common.base.Splitter;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -21,7 +25,6 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 class AnnotationProcessorImpl implements AnnotationProcessor {
-
   private final MultiFileHandler multiFileHandler;
   private final List<File> classpathElements;
   private final List<File> inputFiles;
@@ -94,6 +97,14 @@ class AnnotationProcessorImpl implements AnnotationProcessor {
             File file = new File(URLDecoder.decode(url.getFile(), Charset.defaultCharset().name()));
             addRecursive(file, files);
           }
+        }
+      } else {
+        for (String path : Splitter.on(PATH_SEPARATOR.value()).split(JAVA_CLASS_PATH.value())) {
+          if (!path.endsWith(".jar")) {
+            continue;
+          }
+          File file = new File(path);
+          addRecursive(file, files);
         }
       }
     }
