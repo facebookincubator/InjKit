@@ -15,6 +15,24 @@ import org.gradle.api.file.FileCollection;
 public class AnnotationProcessorInvoker {
   private AnnotationProcessorInvoker() {}
 
+  public static void invokeJavaKotlin(Task javaTask, Task kotlinTask, File configurationFile)
+      throws Exception {
+    AnnotationProcessorConfigurationBuilder builder = new AnnotationProcessorConfigurationBuilder();
+
+    javaTask.getOutputs().getFiles().getFiles().forEach(builder::addFileToTransform);
+    kotlinTask.getOutputs().getFiles().getFiles().forEach(builder::addFileToTransform);
+
+    builder.addClasspathElement(getDestinationDir(javaTask));
+    builder.addClasspathElements(getClasspath(javaTask));
+    builder.addClasspathElements(getBootstrapClasspath(javaTask));
+
+    builder.addClasspathElement(getDestinationDir(kotlinTask));
+    builder.addClasspathElements(getClasspath(kotlinTask));
+
+    builder.setConfigurationFile(configurationFile);
+    builder.build().process();
+  }
+
   public static void invoke(Task compileTask, File configurationFile) throws Exception {
     if (!AnnotationProcessorInvoker.class
         .getClassLoader()
