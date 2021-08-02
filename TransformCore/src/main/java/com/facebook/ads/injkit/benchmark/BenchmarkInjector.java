@@ -437,7 +437,7 @@ class BenchmarkInjector extends BaseInjector {
             Opcodes.INVOKESTATIC,
             benchmarkReceiverClassIName,
             EXECUTED_THROWN_METHOD_NAME,
-            "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;" + "Ljava/lang/Throwable;J)V",
+            "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;J)V",
             false));
 
     // Rethrow the exception.
