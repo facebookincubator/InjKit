@@ -9,7 +9,8 @@ group = 'com.facebook.ads.injkit'
 version = '1.0'
 
 repositories {
-    jcenter()
+    mavenCentral()
+    maven { url 'https://repo.gradle.org/gradle/libs-releases-local/' }
 }
 
 dependencies {
