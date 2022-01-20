@@ -5,7 +5,8 @@
 
 package com.facebook.ads.injkit.model;
 
-import static com.google.common.truth.Truth.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.entry;
 import static org.junit.Assert.fail;
 
 import java.util.Collections;
@@ -90,7 +91,8 @@ public class KeepsTrackOfAnnotationDefaultValuesTest {
   @Test
   public void obtainsAnnotationPropertyTypes() {
     assertThat(model.annotationProperties("Lmy/Ann;"))
-        .containsExactly("aString", Type.getType("Ljava/lang/String;"), "aInt", Type.INT_TYPE);
+        .containsOnly(
+            entry("aString", Type.getType("Ljava/lang/String;")), entry("aInt", Type.INT_TYPE));
   }
 
   @Test

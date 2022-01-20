@@ -5,7 +5,7 @@
 
 package com.facebook.ads.injkit.crashshield;
 
-import static com.google.common.truth.Truth.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import com.facebook.ads.injkit.InvalidAnnotationProcessorConfigurationException;
 import com.facebook.ads.injkit.TransformationEnvironment;
@@ -42,9 +42,9 @@ public class AnnotationDefinitionTest {
           .done()
           .transformAndLoad();
     } catch (InvalidAnnotationProcessorConfigurationException e) {
-      assertThat(e).hasMessageThat().contains(AnnotationWithoutRetention.class.getName());
-      assertThat(e).hasMessageThat().contains(Retention.class.getSimpleName());
-      assertThat(e).hasMessageThat().contains(RetentionPolicy.CLASS.name());
+      assertThat(e).hasMessageContaining(AnnotationWithoutRetention.class.getName());
+      assertThat(e).hasMessageContaining(Retention.class.getSimpleName());
+      assertThat(e).hasMessageContaining(RetentionPolicy.CLASS.name());
     }
   }
 
@@ -60,9 +60,9 @@ public class AnnotationDefinitionTest {
           .done()
           .transformAndLoad();
     } catch (InvalidAnnotationProcessorConfigurationException e) {
-      assertThat(e).hasMessageThat().contains(AnnotationWithSourceRetention.class.getName());
-      assertThat(e).hasMessageThat().contains(Retention.class.getSimpleName());
-      assertThat(e).hasMessageThat().contains(RetentionPolicy.CLASS.name());
+      assertThat(e).hasMessageContaining(AnnotationWithSourceRetention.class.getName());
+      assertThat(e).hasMessageContaining(Retention.class.getSimpleName());
+      assertThat(e).hasMessageContaining(RetentionPolicy.CLASS.name());
     }
   }
 

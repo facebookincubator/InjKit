@@ -5,7 +5,7 @@
 
 package com.facebook.ads.injkit.threadcheck;
 
-import static com.google.common.truth.Truth.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import com.facebook.ads.injkit.AsmNameUtils;
 import com.facebook.ads.injkit.TransformationEnvironment;

@@ -5,7 +5,7 @@
 
 package com.facebook.ads.injkit.benchmark;
 
-import static com.google.common.truth.Truth.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import com.facebook.ads.injkit.TransformationEnvironment;
 import java.lang.annotation.Retention;
@@ -87,10 +87,10 @@ public class BenchmarkInheritanceTest {
 
     switch (expectedOutput) {
       case SUCCESS:
-        assertThat(DummyBenchmarkReport.called).containsExactly("executed");
+        assertThat(DummyBenchmarkReport.called).containsOnly("executed");
         break;
       case WARNING:
-        assertThat(DummyBenchmarkReport.called).containsExactly("executedWithWarning");
+        assertThat(DummyBenchmarkReport.called).containsOnly("executedWithWarning");
         break;
       default:
         throw new AssertionError();

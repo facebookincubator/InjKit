@@ -5,7 +5,7 @@
 
 package com.facebook.ads.injkit.crashshield;
 
-import static com.google.common.truth.Truth.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
@@ -96,8 +96,7 @@ public class CrashShieldParametersInConfigurationFileTest {
       fail();
     } catch (InvalidAnnotationProcessorConfigurationException e) {
       assertThat(e)
-          .hasMessageThat()
-          .contains(CrashShieldConfigurationConstants.DISABLE_ANNOTATION_CLASS);
+          .hasMessageContaining(CrashShieldConfigurationConstants.DISABLE_ANNOTATION_CLASS);
     }
   }
 
@@ -119,8 +118,7 @@ public class CrashShieldParametersInConfigurationFileTest {
       fail();
     } catch (InvalidAnnotationProcessorConfigurationException e) {
       assertThat(e)
-          .hasMessageThat()
-          .contains(CrashShieldConfigurationConstants.DISABLE_ANNOTATION_CLASS);
+          .hasMessageContaining(CrashShieldConfigurationConstants.DISABLE_ANNOTATION_CLASS);
     }
   }
 
@@ -141,8 +139,7 @@ public class CrashShieldParametersInConfigurationFileTest {
       fail();
     } catch (InvalidAnnotationProcessorConfigurationException e) {
       assertThat(e)
-          .hasMessageThat()
-          .contains(CrashShieldConfigurationConstants.DISABLE_ANNOTATION_CLASS);
+          .hasMessageContaining(CrashShieldConfigurationConstants.DISABLE_ANNOTATION_CLASS);
     }
   }
 
@@ -161,9 +158,7 @@ public class CrashShieldParametersInConfigurationFileTest {
       parse(configFile);
       fail();
     } catch (InvalidAnnotationProcessorConfigurationException e) {
-      assertThat(e)
-          .hasMessageThat()
-          .contains(CrashShieldConfigurationConstants.ENABLE_ANNOTATION_CLASS);
+      assertThat(e).hasMessageContaining(CrashShieldConfigurationConstants.ENABLE_ANNOTATION_CLASS);
     }
   }
 
@@ -184,9 +179,7 @@ public class CrashShieldParametersInConfigurationFileTest {
       parse(configFile);
       fail();
     } catch (InvalidAnnotationProcessorConfigurationException e) {
-      assertThat(e)
-          .hasMessageThat()
-          .contains(CrashShieldConfigurationConstants.ENABLE_ANNOTATION_CLASS);
+      assertThat(e).hasMessageContaining(CrashShieldConfigurationConstants.ENABLE_ANNOTATION_CLASS);
     }
   }
 
@@ -206,9 +199,7 @@ public class CrashShieldParametersInConfigurationFileTest {
       parse(configFile);
       fail();
     } catch (InvalidAnnotationProcessorConfigurationException e) {
-      assertThat(e)
-          .hasMessageThat()
-          .contains(CrashShieldConfigurationConstants.ENABLE_ANNOTATION_CLASS);
+      assertThat(e).hasMessageContaining(CrashShieldConfigurationConstants.ENABLE_ANNOTATION_CLASS);
     }
   }
 
@@ -227,9 +218,7 @@ public class CrashShieldParametersInConfigurationFileTest {
       parse(configFile);
       fail();
     } catch (InvalidAnnotationProcessorConfigurationException e) {
-      assertThat(e)
-          .hasMessageThat()
-          .contains(CrashShieldConfigurationConstants.EXCEPTION_HANDLER_CLASS);
+      assertThat(e).hasMessageContaining(CrashShieldConfigurationConstants.EXCEPTION_HANDLER_CLASS);
     }
   }
 
@@ -250,9 +239,7 @@ public class CrashShieldParametersInConfigurationFileTest {
       parse(configFile);
       fail();
     } catch (InvalidAnnotationProcessorConfigurationException e) {
-      assertThat(e)
-          .hasMessageThat()
-          .contains(CrashShieldConfigurationConstants.EXCEPTION_HANDLER_CLASS);
+      assertThat(e).hasMessageContaining(CrashShieldConfigurationConstants.EXCEPTION_HANDLER_CLASS);
     }
   }
 
@@ -272,9 +259,7 @@ public class CrashShieldParametersInConfigurationFileTest {
       parse(configFile);
       fail();
     } catch (InvalidAnnotationProcessorConfigurationException e) {
-      assertThat(e)
-          .hasMessageThat()
-          .contains(CrashShieldConfigurationConstants.EXCEPTION_HANDLER_CLASS);
+      assertThat(e).hasMessageContaining(CrashShieldConfigurationConstants.EXCEPTION_HANDLER_CLASS);
     }
   }
 
@@ -295,7 +280,7 @@ public class CrashShieldParametersInConfigurationFileTest {
       parse(configFile);
       fail();
     } catch (InvalidAnnotationProcessorConfigurationException e) {
-      assertThat(e).hasMessageThat().contains(CrashShieldConfigurationConstants.ENABLED);
+      assertThat(e).hasMessageContaining(CrashShieldConfigurationConstants.ENABLED);
     }
   }
 
@@ -315,7 +300,7 @@ public class CrashShieldParametersInConfigurationFileTest {
       parse(configFile);
       fail();
     } catch (InvalidAnnotationProcessorConfigurationException e) {
-      assertThat(e).hasMessageThat().contains(CrashShieldConfigurationConstants.ENABLED);
+      assertThat(e).hasMessageContaining(CrashShieldConfigurationConstants.ENABLED);
     }
   }
 
@@ -335,7 +320,7 @@ public class CrashShieldParametersInConfigurationFileTest {
       parse(configFile);
       fail();
     } catch (InvalidAnnotationProcessorConfigurationException e) {
-      assertThat(e).hasMessageThat().contains("xx");
+      assertThat(e).hasMessageContaining("xx");
     }
   }
 
@@ -357,8 +342,7 @@ public class CrashShieldParametersInConfigurationFileTest {
       fail();
     } catch (InvalidAnnotationProcessorConfigurationException e) {
       assertThat(e)
-          .hasMessageThat()
-          .contains(CrashShieldConfigurationConstants.SHOULD_PROCESS_CONSTRUCTOR);
+          .hasMessageContaining(CrashShieldConfigurationConstants.SHOULD_PROCESS_CONSTRUCTOR);
     }
   }
 
@@ -379,8 +363,7 @@ public class CrashShieldParametersInConfigurationFileTest {
       fail();
     } catch (InvalidAnnotationProcessorConfigurationException e) {
       assertThat(e)
-          .hasMessageThat()
-          .contains(CrashShieldConfigurationConstants.SHOULD_PROCESS_CONSTRUCTOR);
+          .hasMessageContaining(CrashShieldConfigurationConstants.SHOULD_PROCESS_CONSTRUCTOR);
     }
   }
 
@@ -400,7 +383,7 @@ public class CrashShieldParametersInConfigurationFileTest {
       parse(configFile);
       fail();
     } catch (InvalidAnnotationProcessorConfigurationException e) {
-      assertThat(e).hasMessageThat().contains("abc");
+      assertThat(e).hasMessageContaining("abc");
     }
   }
 
@@ -421,9 +404,7 @@ public class CrashShieldParametersInConfigurationFileTest {
       parse(configFile);
       fail();
     } catch (InvalidAnnotationProcessorConfigurationException e) {
-      assertThat(e)
-          .hasMessageThat()
-          .contains(CrashShieldConfigurationConstants.SHOULD_PROCESS_VIEWS);
+      assertThat(e).hasMessageContaining(CrashShieldConfigurationConstants.SHOULD_PROCESS_VIEWS);
     }
   }
 
@@ -443,9 +424,7 @@ public class CrashShieldParametersInConfigurationFileTest {
       parse(configFile);
       fail();
     } catch (InvalidAnnotationProcessorConfigurationException e) {
-      assertThat(e)
-          .hasMessageThat()
-          .contains(CrashShieldConfigurationConstants.SHOULD_PROCESS_VIEWS);
+      assertThat(e).hasMessageContaining(CrashShieldConfigurationConstants.SHOULD_PROCESS_VIEWS);
     }
   }
 
@@ -465,7 +444,7 @@ public class CrashShieldParametersInConfigurationFileTest {
       parse(configFile);
       fail();
     } catch (InvalidAnnotationProcessorConfigurationException e) {
-      assertThat(e).hasMessageThat().contains("ffff");
+      assertThat(e).hasMessageContaining("ffff");
     }
   }
 }

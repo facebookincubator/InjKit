@@ -5,7 +5,7 @@
 
 package com.facebook.ads.injkit;
 
-import static com.google.common.truth.Truth.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.fail;
 
 import java.io.File;
@@ -44,7 +44,7 @@ public class ConfigurationFileTest {
       AnnotationProcessorConfiguration.parse(config, Collections.emptySet());
       fail();
     } catch (InvalidAnnotationProcessorConfigurationException e) {
-      assertThat(e).hasMessageThat().contains("foo");
+      assertThat(e).hasMessageContaining("foo");
     }
   }
 }

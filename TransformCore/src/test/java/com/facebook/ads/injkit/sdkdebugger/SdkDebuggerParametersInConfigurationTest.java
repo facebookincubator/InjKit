@@ -5,7 +5,7 @@
 
 package com.facebook.ads.injkit.sdkdebugger;
 
-import static com.google.common.truth.Truth.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.fail;
 
 import com.facebook.ads.injkit.AnnotationProcessorParseTestUtils;
@@ -79,7 +79,7 @@ public class SdkDebuggerParametersInConfigurationTest {
       parse(configFile);
       fail();
     } catch (InvalidAnnotationProcessorConfigurationException e) {
-      assertThat(e).hasMessageThat().contains("maybe");
+      assertThat(e).hasMessageContaining("maybe");
     }
   }
 
@@ -96,7 +96,7 @@ public class SdkDebuggerParametersInConfigurationTest {
       parse(configFile);
       fail();
     } catch (InvalidAnnotationProcessorConfigurationException e) {
-      assertThat(e).hasMessageThat().contains(SdkDebuggerConfigurationConstants.CALL_LOGGER);
+      assertThat(e).hasMessageContaining(SdkDebuggerConfigurationConstants.CALL_LOGGER);
     }
   }
 
@@ -113,9 +113,7 @@ public class SdkDebuggerParametersInConfigurationTest {
       parse(configFile);
       fail();
     } catch (InvalidAnnotationProcessorConfigurationException e) {
-      assertThat(e)
-          .hasMessageThat()
-          .contains(SdkDebuggerConfigurationConstants.LOG_CALL_ANNOTATIONS);
+      assertThat(e).hasMessageContaining(SdkDebuggerConfigurationConstants.LOG_CALL_ANNOTATIONS);
     }
   }
 }

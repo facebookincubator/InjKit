@@ -22,7 +22,6 @@ dependencies {
 
 
     testImplementation group: 'junit', name: 'junit', version: '4.12'
-    testImplementation group: 'com.google.truth', name: 'truth', version: '0.42'
     testImplementation group: 'org.mockito', name: 'mockito-core', version: '2.28.2'
     testImplementation group: 'org.robolectric', name: 'robolectric', version: '4.0'
     testImplementation group: 'org.assertj', name: 'assertj-core', version: '3.6.2'

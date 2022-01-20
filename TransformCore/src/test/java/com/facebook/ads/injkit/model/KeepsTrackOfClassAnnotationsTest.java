@@ -5,7 +5,7 @@
 
 package com.facebook.ads.injkit.model;
 
-import static com.google.common.truth.Truth.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Collections;
 import org.junit.Before;
@@ -54,26 +54,24 @@ public class KeepsTrackOfClassAnnotationsTest {
 
   @Test
   public void superClassVisibleAnnotationsFoundWhenLookingInClosure() {
-    assertThat(model.closureWithAnnotationFilter("foo/Drink", "Lmy/Ann1;"))
-        .containsExactly("foo/Bar");
+    assertThat(model.closureWithAnnotationFilter("foo/Drink", "Lmy/Ann1;")).containsOnly("foo/Bar");
   }
 
   @Test
   public void superClassInvisibleAnnotationsFoundWhenLookingInClosure() {
-    assertThat(model.closureWithAnnotationFilter("foo/Drink", "Lmy/Ann2;"))
-        .containsExactly("foo/Bar");
+    assertThat(model.closureWithAnnotationFilter("foo/Drink", "Lmy/Ann2;")).containsOnly("foo/Bar");
   }
 
   @Test
   public void interfaceVisibleAnnotationsFoundWhenLookingInClosure() {
     assertThat(model.closureWithAnnotationFilter("foo/Drink", "Lmy/AnnI1;"))
-        .containsExactly("foo/Intf");
+        .containsOnly("foo/Intf");
   }
 
   @Test
   public void interfaceInvisibleAnnotationsFoundWhenLookingInClosure() {
     assertThat(model.closureWithAnnotationFilter("foo/Drink", "Lmy/AnnI2;"))
-        .containsExactly("foo/Intf");
+        .containsOnly("foo/Intf");
   }
 
   @Test

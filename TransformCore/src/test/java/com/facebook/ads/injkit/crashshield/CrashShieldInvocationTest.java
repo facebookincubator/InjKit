@@ -5,7 +5,7 @@
 
 package com.facebook.ads.injkit.crashshield;
 
-import static com.google.common.truth.Truth.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import android.annotation.SuppressLint;
 import com.facebook.ads.injkit.TransformationEnvironment;
@@ -92,19 +92,17 @@ public class CrashShieldInvocationTest {
     if (isStatic) {
       method.invoke(null);
 
-      assertThat(FakeExceptionHandler.getHandledObjects()).containsExactly(loaded);
+      assertThat(FakeExceptionHandler.getHandledObjects()).containsOnly(loaded);
     } else {
       Object instance = loaded.newInstance();
       method.invoke(instance);
 
-      assertThat(FakeExceptionHandler.getHandledObjects()).containsExactly(instance);
+      assertThat(FakeExceptionHandler.getHandledObjects()).containsOnly(instance);
     }
 
     assertThat(tryCatchInjected).isTrue();
     assertThat(FakeExceptionHandler.getHandledThrowables()).hasSize(1);
-    assertThat(FakeExceptionHandler.getHandledThrowables().get(0))
-        .hasMessageThat()
-        .isEqualTo("boom");
+    assertThat(FakeExceptionHandler.getHandledThrowables().get(0)).hasMessage("boom");
   }
 
   public static class TestClass1 {

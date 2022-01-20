@@ -5,7 +5,7 @@
 
 package com.facebook.ads.injkit.model;
 
-import static com.google.common.truth.Truth.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -97,7 +97,7 @@ public class KeepsTrackOfMethodsTest {
             AsmCreationUtils.makeMethod("proMet", "()V", Opcodes.ACC_PUBLIC)));
 
     assertThat(model.hierarchicalMethodClosure("Sub", "proMet", "()V", Opcodes.ACC_PUBLIC))
-        .containsExactly("Sup", "Sub");
+        .containsOnly("Sup", "Sub");
   }
 
   @Test
@@ -112,7 +112,7 @@ public class KeepsTrackOfMethodsTest {
             AsmCreationUtils.makeMethod("pacMet", "()V", Opcodes.ACC_PUBLIC)));
 
     assertThat(model.hierarchicalMethodClosure("Sub", "pacMet", "()V", Opcodes.ACC_PUBLIC))
-        .containsExactly("Sup", "Sub");
+        .containsOnly("Sup", "Sub");
   }
 
   @Test
@@ -127,7 +127,7 @@ public class KeepsTrackOfMethodsTest {
             AsmCreationUtils.makeMethod("pacMet", "()V", Opcodes.ACC_PROTECTED)));
 
     assertThat(model.hierarchicalMethodClosure("Sub", "pacMet", "()V", Opcodes.ACC_PROTECTED))
-        .containsExactly("Sup", "Sub");
+        .containsOnly("Sup", "Sub");
   }
 
   @Test
@@ -142,7 +142,7 @@ public class KeepsTrackOfMethodsTest {
             AsmCreationUtils.makeMethod("priMet", "()V", Opcodes.ACC_PUBLIC)));
 
     assertThat(model.hierarchicalMethodClosure("Sub", "priMet", "()V", Opcodes.ACC_PUBLIC))
-        .containsExactly("Sub");
+        .containsOnly("Sub");
   }
 
   @Test
@@ -156,7 +156,7 @@ public class KeepsTrackOfMethodsTest {
             AsmCreationUtils.makeClass("Sub", "Sup"),
             AsmCreationUtils.makeMethod("priMet", "()V", 0)));
 
-    assertThat(model.hierarchicalMethodClosure("Sub", "priMet", "()V", 0)).containsExactly("Sub");
+    assertThat(model.hierarchicalMethodClosure("Sub", "priMet", "()V", 0)).containsOnly("Sub");
   }
 
   @Test
@@ -171,6 +171,6 @@ public class KeepsTrackOfMethodsTest {
             AsmCreationUtils.makeMethod("priMet", "()V", Opcodes.ACC_PROTECTED)));
 
     assertThat(model.hierarchicalMethodClosure("Sub", "priMet", "()V", Opcodes.ACC_PROTECTED))
-        .containsExactly("Sub");
+        .containsOnly("Sub");
   }
 }

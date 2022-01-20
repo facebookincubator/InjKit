@@ -5,7 +5,8 @@
 
 package com.facebook.ads.injkit.model;
 
-import static com.google.common.truth.Truth.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.entry;
 import static org.junit.Assert.fail;
 
 import java.util.Arrays;
@@ -73,12 +74,12 @@ public class KeepsTrackOfClassAnnotationPropertiesTest {
   @Test
   public void closureWithAnnotationProperties() {
     assertThat(model.closureWithAnnotationFilterAndValue("my/Cls2", "Lmy/StringAnn;", "foo"))
-        .containsExactly("my/Cls1", "bar", "my/Cls2", "bazz");
+        .containsOnly(entry("my/Cls1", "bar"), entry("my/Cls2", "bazz"));
   }
 
   @Test
   public void closureWithAnnotationWithMissingProperties() {
     assertThat(model.closureWithAnnotationFilterAndValue("my/Cls3", "Lmy/StringAnn;", "foo"))
-        .containsExactly("my/Cls1", "bar");
+        .containsOnly(entry("my/Cls1", "bar"));
   }
 }

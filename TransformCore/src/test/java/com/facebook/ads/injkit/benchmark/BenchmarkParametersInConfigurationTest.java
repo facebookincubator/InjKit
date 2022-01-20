@@ -5,7 +5,7 @@
 
 package com.facebook.ads.injkit.benchmark;
 
-import static com.google.common.truth.Truth.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.fail;
 
 import com.facebook.ads.injkit.AnnotationProcessorParseTestUtils;
@@ -80,7 +80,7 @@ public class BenchmarkParametersInConfigurationTest {
       parse(configFile);
       fail();
     } catch (InvalidAnnotationProcessorConfigurationException e) {
-      assertThat(e).hasMessageThat().contains(BenchmarkConfigurationConstants.ENABLED);
+      assertThat(e).hasMessageContaining(BenchmarkConfigurationConstants.ENABLED);
     }
   }
 
@@ -96,7 +96,7 @@ public class BenchmarkParametersInConfigurationTest {
       parse(configFile);
       fail();
     } catch (InvalidAnnotationProcessorConfigurationException e) {
-      assertThat(e).hasMessageThat().contains(BenchmarkConfigurationConstants.ENABLED);
+      assertThat(e).hasMessageContaining(BenchmarkConfigurationConstants.ENABLED);
     }
   }
 
@@ -112,7 +112,7 @@ public class BenchmarkParametersInConfigurationTest {
       parse(configFile);
       fail();
     } catch (InvalidAnnotationProcessorConfigurationException e) {
-      assertThat(e).hasMessageThat().contains(BenchmarkConfigurationConstants.ANNOTATION_CLASS);
+      assertThat(e).hasMessageContaining(BenchmarkConfigurationConstants.ANNOTATION_CLASS);
     }
   }
 
@@ -130,7 +130,7 @@ public class BenchmarkParametersInConfigurationTest {
       parse(configFile);
       fail();
     } catch (InvalidAnnotationProcessorConfigurationException e) {
-      assertThat(e).hasMessageThat().contains(BenchmarkConfigurationConstants.ANNOTATION_CLASS);
+      assertThat(e).hasMessageContaining(BenchmarkConfigurationConstants.ANNOTATION_CLASS);
     }
   }
 
@@ -147,7 +147,7 @@ public class BenchmarkParametersInConfigurationTest {
       parse(configFile);
       fail();
     } catch (InvalidAnnotationProcessorConfigurationException e) {
-      assertThat(e).hasMessageThat().contains(BenchmarkConfigurationConstants.ANNOTATION_CLASS);
+      assertThat(e).hasMessageContaining(BenchmarkConfigurationConstants.ANNOTATION_CLASS);
     }
   }
 
@@ -163,7 +163,7 @@ public class BenchmarkParametersInConfigurationTest {
       parse(configFile);
       fail();
     } catch (InvalidAnnotationProcessorConfigurationException e) {
-      assertThat(e).hasMessageThat().contains(BenchmarkConfigurationConstants.RECEIVER_CLASS);
+      assertThat(e).hasMessageContaining(BenchmarkConfigurationConstants.RECEIVER_CLASS);
     }
   }
 
@@ -181,7 +181,7 @@ public class BenchmarkParametersInConfigurationTest {
       parse(configFile);
       fail();
     } catch (InvalidAnnotationProcessorConfigurationException e) {
-      assertThat(e).hasMessageThat().contains(BenchmarkConfigurationConstants.RECEIVER_CLASS);
+      assertThat(e).hasMessageContaining(BenchmarkConfigurationConstants.RECEIVER_CLASS);
     }
   }
 
@@ -198,7 +198,7 @@ public class BenchmarkParametersInConfigurationTest {
       parse(configFile);
       fail();
     } catch (InvalidAnnotationProcessorConfigurationException e) {
-      assertThat(e).hasMessageThat().contains(BenchmarkConfigurationConstants.RECEIVER_CLASS);
+      assertThat(e).hasMessageContaining(BenchmarkConfigurationConstants.RECEIVER_CLASS);
     }
   }
 }

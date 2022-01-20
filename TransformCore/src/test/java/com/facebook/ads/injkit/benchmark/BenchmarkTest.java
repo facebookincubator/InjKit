@@ -5,7 +5,7 @@
 
 package com.facebook.ads.injkit.benchmark;
 
-import static com.google.common.truth.Truth.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.fail;
 
 import com.facebook.ads.injkit.TransformationEnvironment;
@@ -72,10 +72,10 @@ public class BenchmarkTest {
 
     cls.myMethod(5);
 
-    assertThat(DummyBenchmarkReport.called).containsExactly("executed");
-    assertThat(DummyBenchmarkReport.owner).containsExactly(TestClass.class.getName());
-    assertThat(DummyBenchmarkReport.methodName).containsExactly("myMethod");
-    assertThat(DummyBenchmarkReport.methodDesc).containsExactly("(I)I");
+    assertThat(DummyBenchmarkReport.called).containsOnly("executed");
+    assertThat(DummyBenchmarkReport.owner).containsOnly(TestClass.class.getName());
+    assertThat(DummyBenchmarkReport.methodName).containsOnly("myMethod");
+    assertThat(DummyBenchmarkReport.methodDesc).containsOnly("(I)I");
     assertThat(DummyBenchmarkReport.timeNanos).hasSize(1);
     assertThat(DummyBenchmarkReport.timeNanos.get(0)).isLessThan(1_000_000L);
     assertThat(DummyBenchmarkReport.limitNanos).isEmpty();
@@ -96,14 +96,14 @@ public class BenchmarkTest {
 
     cls.slowMethod(20);
 
-    assertThat(DummyBenchmarkReport.called).containsExactly("executedWithWarning");
-    assertThat(DummyBenchmarkReport.owner).containsExactly(TestClass.class.getName());
-    assertThat(DummyBenchmarkReport.methodName).containsExactly("slowMethod");
-    assertThat(DummyBenchmarkReport.methodDesc).containsExactly("(I)V");
+    assertThat(DummyBenchmarkReport.called).containsOnly("executedWithWarning");
+    assertThat(DummyBenchmarkReport.owner).containsOnly(TestClass.class.getName());
+    assertThat(DummyBenchmarkReport.methodName).containsOnly("slowMethod");
+    assertThat(DummyBenchmarkReport.methodDesc).containsOnly("(I)V");
     assertThat(DummyBenchmarkReport.timeNanos).hasSize(1);
-    assertThat(DummyBenchmarkReport.timeNanos.get(0)).isAtLeast(10_000_000L);
+    assertThat(DummyBenchmarkReport.timeNanos.get(0)).isGreaterThanOrEqualTo(10_000_000L);
     assertThat(DummyBenchmarkReport.timeNanos.get(0)).isLessThan(30_000_000L);
-    assertThat(DummyBenchmarkReport.limitNanos).containsExactly(10_000_000L);
+    assertThat(DummyBenchmarkReport.limitNanos).containsOnly(10_000_000L);
   }
 
   @Test
@@ -121,14 +121,14 @@ public class BenchmarkTest {
 
     cls.slowMethod(40);
 
-    assertThat(DummyBenchmarkReport.called).containsExactly("failed");
-    assertThat(DummyBenchmarkReport.owner).containsExactly(TestClass.class.getName());
-    assertThat(DummyBenchmarkReport.methodName).containsExactly("slowMethod");
-    assertThat(DummyBenchmarkReport.methodDesc).containsExactly("(I)V");
+    assertThat(DummyBenchmarkReport.called).containsOnly("failed");
+    assertThat(DummyBenchmarkReport.owner).containsOnly(TestClass.class.getName());
+    assertThat(DummyBenchmarkReport.methodName).containsOnly("slowMethod");
+    assertThat(DummyBenchmarkReport.methodDesc).containsOnly("(I)V");
     assertThat(DummyBenchmarkReport.timeNanos).hasSize(1);
-    assertThat(DummyBenchmarkReport.timeNanos.get(0)).isAtLeast(40_000_000L);
+    assertThat(DummyBenchmarkReport.timeNanos.get(0)).isGreaterThanOrEqualTo(40_000_000L);
     assertThat(DummyBenchmarkReport.timeNanos.get(0)).isLessThan(50_000_000L);
-    assertThat(DummyBenchmarkReport.limitNanos).containsExactly(30_000_000L);
+    assertThat(DummyBenchmarkReport.limitNanos).containsOnly(30_000_000L);
   }
 
   @Test
@@ -201,12 +201,12 @@ public class BenchmarkTest {
       assertThat(e.getMessage()).isEqualTo("boom");
     }
 
-    assertThat(DummyBenchmarkReport.called).containsExactly("thrown");
-    assertThat(DummyBenchmarkReport.owner).containsExactly(TestClass.class.getName());
-    assertThat(DummyBenchmarkReport.methodName).containsExactly("methodThatThrowsException");
-    assertThat(DummyBenchmarkReport.methodDesc).containsExactly("()V");
+    assertThat(DummyBenchmarkReport.called).containsOnly("thrown");
+    assertThat(DummyBenchmarkReport.owner).containsOnly(TestClass.class.getName());
+    assertThat(DummyBenchmarkReport.methodName).containsOnly("methodThatThrowsException");
+    assertThat(DummyBenchmarkReport.methodDesc).containsOnly("()V");
     assertThat(DummyBenchmarkReport.timeNanos).hasSize(1);
-    assertThat(DummyBenchmarkReport.timeNanos.get(0)).isAtLeast(1L);
+    assertThat(DummyBenchmarkReport.timeNanos.get(0)).isGreaterThanOrEqualTo(1L);
     assertThat(DummyBenchmarkReport.exceptions).hasSize(1);
     assertThat(DummyBenchmarkReport.exceptions.get(0)).isInstanceOf(RuntimeException.class);
     assertThat(DummyBenchmarkReport.exceptions.get(0).getMessage()).isEqualTo("boom");

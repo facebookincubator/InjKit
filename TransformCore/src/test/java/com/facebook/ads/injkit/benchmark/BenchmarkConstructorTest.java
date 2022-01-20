@@ -5,7 +5,7 @@
 
 package com.facebook.ads.injkit.benchmark;
 
-import static com.google.common.truth.Truth.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import com.facebook.ads.injkit.TransformationEnvironment;
 import java.util.Arrays;
@@ -60,7 +60,7 @@ public class BenchmarkConstructorTest {
         .getConstructor(constructorParamTypes)
         .newInstance(constructorParams);
 
-    assertThat(DummyBenchmarkReport.called).containsExactly("executed");
+    assertThat(DummyBenchmarkReport.called).containsOnly("executed");
   }
 
   public static class TestClass1 {

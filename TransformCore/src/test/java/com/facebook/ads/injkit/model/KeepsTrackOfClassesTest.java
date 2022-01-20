@@ -5,7 +5,7 @@
 
 package com.facebook.ads.injkit.model;
 
-import static com.google.common.truth.Truth.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.fail;
 
 import org.junit.Test;
@@ -43,7 +43,7 @@ public class KeepsTrackOfClassesTest {
   public void hasInterfacesOfClassesWith2Interfaces() {
     model.update(AsmCreationUtils.makeClass("a", "b", "c", "d"));
 
-    assertThat(model.interfacesOf("a")).containsExactly("c", "d");
+    assertThat(model.interfacesOf("a")).containsExactlyInAnyOrder("c", "d");
   }
 
   @Test
@@ -54,7 +54,7 @@ public class KeepsTrackOfClassesTest {
     model.update(AsmCreationUtils.makeClass("d", "c"));
     model.update(AsmCreationUtils.makeClass("e", "yyy"));
 
-    assertThat(model.hierarchicalClosure("c")).containsExactly("a", "b", "c", "xxx");
+    assertThat(model.hierarchicalClosure("c")).containsOnly("a", "b", "c", "xxx");
   }
 
   @Test
@@ -64,7 +64,7 @@ public class KeepsTrackOfClassesTest {
     model.update(AsmCreationUtils.makeClass("d", "o", "y"));
 
     assertThat(model.hierarchicalClosure("a"))
-        .containsExactly("a", "b", "c", "d", "e", "o", "x", "y", "z");
+        .containsOnly("a", "b", "c", "d", "e", "x", "y", "z", "o");
   }
 
   @Test

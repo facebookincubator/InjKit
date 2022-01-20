@@ -5,7 +5,7 @@
 
 package com.facebook.ads.injkit.model;
 
-import static com.google.common.truth.Truth.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.fail;
 
 import java.util.Collections;
@@ -108,11 +108,11 @@ public class KeepsTrackOfMethodAnnotationsTest {
     assertThat(
             model.methodClosureWithAnnotationFilter(
                 "e/F", "foo", "()V", Opcodes.ACC_PUBLIC, "Lmy/Ann1;"))
-        .containsExactly("a/B");
+        .containsOnly("a/B");
     assertThat(
             model.methodClosureWithAnnotationFilter(
                 "e/F", "foo", "()V", Opcodes.ACC_PUBLIC, "Lmy/Ann2;"))
-        .containsExactly("a/B");
+        .containsOnly("a/B");
   }
 
   @Test
@@ -120,11 +120,11 @@ public class KeepsTrackOfMethodAnnotationsTest {
     assertThat(
             model.methodClosureWithAnnotationFilter(
                 "e/F", "foo", "()V", Opcodes.ACC_PUBLIC, "Lmy/Ann7;"))
-        .containsExactly("g/H");
+        .containsOnly("g/H");
     assertThat(
             model.methodClosureWithAnnotationFilter(
                 "e/F", "foo", "()V", Opcodes.ACC_PUBLIC, "Lmy/Ann8;"))
-        .containsExactly("g/H");
+        .containsOnly("g/H");
   }
 
   @Test

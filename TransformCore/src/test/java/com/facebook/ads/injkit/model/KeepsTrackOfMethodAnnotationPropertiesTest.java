@@ -5,7 +5,8 @@
 
 package com.facebook.ads.injkit.model;
 
-import static com.google.common.truth.Truth.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.entry;
 import static org.junit.Assert.fail;
 
 import java.util.Collections;
@@ -100,7 +101,7 @@ public class KeepsTrackOfMethodAnnotationPropertiesTest {
     assertThat(
             model.methodClosureWithAnnotationFilterAndValue(
                 "subcls/with/Methods", "withStringAnn", "()V", Opcodes.ACC_PUBLIC, "LSA;", "val"))
-        .containsExactly("subcls/with/Methods", "booom", "cls/with/Methods", "boom");
+        .containsOnly(entry("subcls/with/Methods", "booom"), entry("cls/with/Methods", "boom"));
   }
 
   @Test
@@ -113,6 +114,6 @@ public class KeepsTrackOfMethodAnnotationPropertiesTest {
                 Opcodes.ACC_PUBLIC,
                 "LSA;",
                 "val"))
-        .containsExactly("cls/with/Methods", "boom");
+        .containsOnly(entry("cls/with/Methods", "boom"));
   }
 }

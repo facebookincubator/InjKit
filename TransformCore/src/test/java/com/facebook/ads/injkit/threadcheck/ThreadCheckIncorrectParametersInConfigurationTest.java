@@ -10,7 +10,7 @@ import static com.facebook.ads.injkit.threadcheck.ThreadCheckConfigurationConsta
 import static com.facebook.ads.injkit.threadcheck.ThreadCheckConfigurationConstants.UI_THREAD_ANNOTATION_CLASS;
 import static com.facebook.ads.injkit.threadcheck.ThreadCheckConfigurationConstants.VIOLATION_HANDLER_CLASS;
 import static com.facebook.ads.injkit.threadcheck.ThreadCheckConfigurationConstants.WORKER_THREAD_ANNOTATION_CLASS;
-import static com.google.common.truth.Truth.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.fail;
 
 import com.facebook.ads.injkit.AnnotationProcessorParseTestUtils;
@@ -120,7 +120,7 @@ public class ThreadCheckIncorrectParametersInConfigurationTest {
       AnnotationProcessorParseTestUtils.parse(config, new ThreadCheckConfigurationParser());
       fail();
     } catch (InvalidAnnotationProcessorConfigurationException e) {
-      assertThat(e).hasMessageThat().contains(expectedMessage);
+      assertThat(e).hasMessageContaining(expectedMessage);
     }
   }
 }
