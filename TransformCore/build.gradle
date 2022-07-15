@@ -14,8 +14,8 @@ repositories {
 }
 
 dependencies {
-    implementation group: 'org.ow2.asm', name: 'asm-tree', version: '6.2.1'
-    implementation group: 'org.ow2.asm', name: 'asm-util', version: '6.2.1'
+    implementation group: 'org.ow2.asm', name: 'asm-tree', version: '9.3'
+    implementation group: 'org.ow2.asm', name: 'asm-util', version: '9.3'
     implementation group: 'com.google.guava', name: 'guava', version: '29.0-jre'
     // We need Android API classes.
     implementation group: 'org.robolectric', name: 'android-all', version: '8.0.0_r4-robolectric-0'
