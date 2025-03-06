@@ -21,6 +21,7 @@ import com.facebook.ads.injkit.InvalidAnnotationProcessorConfigurationException;
 import java.io.File;
 import java.util.Arrays;
 import java.util.List;
+import javax.annotation.Nullable;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
@@ -98,6 +99,7 @@ public class ThreadCheckIncorrectParametersInConfigurationTest {
         });
   }
 
+  @Nullable
   private static String buildValue(String param, String value) {
     if (value == null) {
       return null;
