@@ -7,6 +7,7 @@
 
 package com.facebook.ads.injkit.model;
 
+import com.facebook.infer.annotation.Nullsafe;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -14,10 +15,12 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
+import javax.annotation.Nullable;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.Type;
 import org.objectweb.asm.tree.ClassNode;
 
+@Nullsafe(Nullsafe.Mode.LOCAL)
 class KnownClass {
   private final int access;
   private final String iName;
@@ -28,9 +31,12 @@ class KnownClass {
 
   KnownClass(ClassNode node) {
     access = node.access;
+    // NULLSAFE_FIXME[Not Vetted Third-Party]
     iName = node.name;
+    // NULLSAFE_FIXME[Not Vetted Third-Party]
     superIName = node.superName;
     interfaceINames = copyList(node.interfaces);
+    // NULLSAFE_FIXME[Not Vetted Third-Party]
     annotations = KnownAnnotation.from(node.visibleAnnotations, node.invisibleAnnotations);
     methods = copyList(node.methods).stream().map(KnownMethod::new).collect(Collectors.toList());
   }
@@ -61,6 +67,7 @@ class KnownClass {
       }
     }
 
+    // NULLSAFE_FIXME[Return Not Nullable]
     return null;
   }
 
@@ -106,6 +113,7 @@ class KnownClass {
       }
     }
 
+    // NULLSAFE_FIXME[Return Not Nullable]
     return null;
   }
 
@@ -115,7 +123,7 @@ class KnownClass {
   }
 
   @SuppressWarnings("unchecked")
-  private static <T> List<T> copyList(List<T> list) {
+  private static <T> List<T> copyList(@Nullable List<T> list) {
     if (list == null) {
       return Collections.EMPTY_LIST;
     } else {
