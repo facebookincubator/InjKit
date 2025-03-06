@@ -7,6 +7,7 @@
 
 package com.facebook.ads.injkit;
 
+import com.facebook.infer.annotation.Nullsafe;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Executable;
 import java.lang.reflect.Method;
@@ -14,10 +15,12 @@ import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import javax.annotation.Nullable;
 import org.objectweb.asm.Type;
 import org.objectweb.asm.tree.ClassNode;
 import org.objectweb.asm.tree.MethodNode;
 
+@Nullsafe(Nullsafe.Mode.LOCAL)
 public class ReflectUtils {
   private ReflectUtils() {}
 
@@ -73,29 +76,35 @@ public class ReflectUtils {
     }
   }
 
-  static Executable mapMethod(Executable method, Class<?> inClass) {
+  static Executable mapMethod(Executable method, @Nullable Class<?> inClass) {
     if (inClass == null) {
+      // NULLSAFE_FIXME[Return Not Nullable]
       return null;
     }
 
     try {
       if (Modifier.isStatic(method.getModifiers())) {
+        // NULLSAFE_FIXME[Return Not Nullable]
         return null;
       }
 
       if (method instanceof Method) {
+        // NULLSAFE_FIXME[Not Vetted Third-Party]
         Method m = inClass.getDeclaredMethod(method.getName(), method.getParameterTypes());
         if (Modifier.isPrivate(m.getModifiers()) || Modifier.isStatic(m.getModifiers())) {
+          // NULLSAFE_FIXME[Return Not Nullable]
           return null;
         }
 
         return m;
       } else {
         // Constructors are not mapped.
+        // NULLSAFE_FIXME[Return Not Nullable]
         return null;
       }
 
     } catch (NoSuchMethodException e) {
+      // NULLSAFE_FIXME[Return Not Nullable]
       return null;
     }
   }
@@ -103,6 +112,7 @@ public class ReflectUtils {
   static Class<?> findClass(ClassNode node, ClassLoader loader)
       throws AnnotationProcessingException {
     try {
+      // NULLSAFE_FIXME[Not Vetted Third-Party]
       return loader.loadClass(AsmNameUtils.classInternalNameToJavaName(node.name));
     } catch (ClassNotFoundException e) {
       throw new AnnotationProcessingException(
@@ -116,10 +126,12 @@ public class ReflectUtils {
     Class<?> cls = findClass(classNode, loader);
 
     try {
+      // NULLSAFE_FIXME[Not Vetted Third-Party]
       if (methodNode.name.equals(AsmNameUtils.INIT)) {
         return cls.getConstructor(methodArgumentTypes(methodNode, loader));
       }
 
+      // NULLSAFE_FIXME[Not Vetted Third-Party]
       return cls.getDeclaredMethod(methodNode.name, methodArgumentTypes(methodNode, loader));
     } catch (NoSuchMethodException e) {
       throw new AnnotationProcessingException(
@@ -136,6 +148,7 @@ public class ReflectUtils {
   private static Class<?>[] methodArgumentTypes(MethodNode method, ClassLoader loader)
       throws AnnotationProcessingException {
     List<Class<?>> types = new ArrayList<>();
+    // NULLSAFE_FIXME[Not Vetted Third-Party]
     for (Type type : Type.getArgumentTypes(method.desc)) {
       switch (type.getSort()) {
         case Type.BOOLEAN:
@@ -165,6 +178,7 @@ public class ReflectUtils {
         case Type.ARRAY:
         case Type.OBJECT:
           try {
+            // NULLSAFE_FIXME[Not Vetted Third-Party]
             types.add(Class.forName(type.getInternalName().replace('/', '.'), false, loader));
           } catch (ClassNotFoundException e) {
             throw new AnnotationProcessingException(
