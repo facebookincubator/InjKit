@@ -19,6 +19,7 @@ import java.util.Random;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import java.util.zip.ZipOutputStream;
+import javax.annotation.Nullable;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
@@ -78,6 +79,7 @@ public class FileProcessingTest {
     }
   }
 
+  @Nullable
   private static byte[] extractZipEntry(File zip, String path) throws IOException {
     try (ZipFile zf = new ZipFile(zip)) {
       ZipEntry entry = zf.getEntry(path);
