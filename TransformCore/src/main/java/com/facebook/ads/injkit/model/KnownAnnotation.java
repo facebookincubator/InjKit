@@ -34,8 +34,8 @@ class KnownAnnotation {
     return desc;
   }
 
+  @Nullable
   Object getValue(String key) {
-    // NULLSAFE_FIXME[Return Not Nullable]
     return values.get(key);
   }
 
