@@ -76,15 +76,14 @@ public class ReflectUtils {
     }
   }
 
+  @Nullable
   static Executable mapMethod(Executable method, @Nullable Class<?> inClass) {
     if (inClass == null) {
-      // NULLSAFE_FIXME[Return Not Nullable]
       return null;
     }
 
     try {
       if (Modifier.isStatic(method.getModifiers())) {
-        // NULLSAFE_FIXME[Return Not Nullable]
         return null;
       }
 
@@ -92,19 +91,16 @@ public class ReflectUtils {
         // NULLSAFE_FIXME[Not Vetted Third-Party]
         Method m = inClass.getDeclaredMethod(method.getName(), method.getParameterTypes());
         if (Modifier.isPrivate(m.getModifiers()) || Modifier.isStatic(m.getModifiers())) {
-          // NULLSAFE_FIXME[Return Not Nullable]
           return null;
         }
 
         return m;
       } else {
         // Constructors are not mapped.
-        // NULLSAFE_FIXME[Return Not Nullable]
         return null;
       }
 
     } catch (NoSuchMethodException e) {
-      // NULLSAFE_FIXME[Return Not Nullable]
       return null;
     }
   }
