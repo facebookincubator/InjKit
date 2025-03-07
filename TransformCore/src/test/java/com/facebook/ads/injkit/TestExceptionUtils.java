@@ -10,6 +10,7 @@ package com.facebook.ads.injkit;
 import static org.junit.Assert.fail;
 
 import java.util.Locale;
+import javax.annotation.Nullable;
 
 public class TestExceptionUtils {
   private TestExceptionUtils() {}
@@ -28,6 +29,7 @@ public class TestExceptionUtils {
     fail(String.format(Locale.US, "Expected message chain to contain '%s'", message));
   }
 
+  @Nullable
   private static Throwable causeOf(Throwable t) {
     if (t.getCause() == t) {
       return null;
