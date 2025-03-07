@@ -36,7 +36,6 @@ class KnownClass {
     // NULLSAFE_FIXME[Not Vetted Third-Party]
     superIName = node.superName;
     interfaceINames = copyList(node.interfaces);
-    // NULLSAFE_FIXME[Not Vetted Third-Party]
     annotations = KnownAnnotation.from(node.visibleAnnotations, node.invisibleAnnotations);
     methods = copyList(node.methods).stream().map(KnownMethod::new).collect(Collectors.toList());
   }
@@ -57,6 +56,7 @@ class KnownClass {
     return annotations.stream().map(KnownAnnotation::getDescription).collect(Collectors.toSet());
   }
 
+  @Nullable
   private KnownMethod find(String name, String desc, int access) {
     for (KnownMethod method : methods) {
       if (method.getName().equals(name)
@@ -67,7 +67,6 @@ class KnownClass {
       }
     }
 
-    // NULLSAFE_FIXME[Return Not Nullable]
     return null;
   }
 
@@ -103,6 +102,7 @@ class KnownClass {
             Locale.US, "Class '%s' does not have annotation with descriptor '%s'", iName, desc));
   }
 
+  @Nullable
   Object getPropertyDefaultValue(String property) {
     for (KnownMethod m : methods) {
       if (m.getName().equals(property)) {
@@ -113,7 +113,6 @@ class KnownClass {
       }
     }
 
-    // NULLSAFE_FIXME[Return Not Nullable]
     return null;
   }
 
