@@ -12,14 +12,15 @@ import com.facebook.ads.injkit.TransformationEnvironment;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
+import javax.annotation.Nullable;
 
 public class CrashShieldConfigurationWriter<
         T extends TransformationEnvironment.ConfigurationFileWriter<T>>
     implements TransformationEnvironment.ModuleConfigurationWriter<T> {
   private final T configurationFileWriter;
-  private String handlerClassName;
-  private String transformAnnotationClassName;
-  private String noTransformAnnotationClassName;
+  @Nullable private String handlerClassName;
+  @Nullable private String transformAnnotationClassName;
+  @Nullable private String noTransformAnnotationClassName;
   private final List<String> processablePackages = new ArrayList<>();
   private boolean shouldProcessConstructor;
   private boolean shouldProcessViews;
