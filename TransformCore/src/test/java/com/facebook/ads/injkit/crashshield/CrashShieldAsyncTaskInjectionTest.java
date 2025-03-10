@@ -21,6 +21,7 @@ import java.lang.reflect.Method;
 import java.util.concurrent.Executor;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
+import javax.annotation.Nullable;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -191,7 +192,7 @@ public class CrashShieldAsyncTaskInjectionTest {
 
     private final boolean throwException;
 
-    private final AtomicBoolean finishedCondition;
+    @Nullable private final AtomicBoolean finishedCondition;
 
     public FakeAsyncTask(AtomicBoolean finishedCondition) {
       this.throwException = false;
