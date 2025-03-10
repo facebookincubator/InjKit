@@ -9,15 +9,16 @@ package com.facebook.ads.injkit.threadcheck;
 
 import com.facebook.ads.injkit.TransformationEnvironment;
 import java.io.PrintWriter;
+import javax.annotation.Nullable;
 
 class ThreadCheckConfigurationWriter<T extends TransformationEnvironment.ConfigurationFileWriter<T>>
     implements TransformationEnvironment.ModuleConfigurationWriter<T> {
   private final T configurationFileWriter;
   private boolean enabled;
-  private String uiThreadAnnotationClass;
-  private String workerThreadAnnotationClass;
-  private String anyThreadAnnotationClass;
-  private String violationHandlerClass;
+  @Nullable private String uiThreadAnnotationClass;
+  @Nullable private String workerThreadAnnotationClass;
+  @Nullable private String anyThreadAnnotationClass;
+  @Nullable private String violationHandlerClass;
 
   public ThreadCheckConfigurationWriter(T configurationFileWriter) {
     this.configurationFileWriter = configurationFileWriter;
