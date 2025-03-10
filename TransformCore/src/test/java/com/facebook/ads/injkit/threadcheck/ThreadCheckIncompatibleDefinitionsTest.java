@@ -17,6 +17,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.Arrays;
 import java.util.List;
+import javax.annotation.Nullable;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
@@ -27,12 +28,15 @@ import org.junit.runners.Parameterized;
 public class ThreadCheckIncompatibleDefinitionsTest {
   @Rule public TemporaryFolder temporaryFolder = new TemporaryFolder();
 
+  @Nullable
   @Parameterized.Parameter(0)
   public Class<?> testClass0;
 
+  @Nullable
   @Parameterized.Parameter(1)
   public Class<?> testClass1;
 
+  @Nullable
   @Parameterized.Parameter(2)
   public Class<?> testClass2;
 
