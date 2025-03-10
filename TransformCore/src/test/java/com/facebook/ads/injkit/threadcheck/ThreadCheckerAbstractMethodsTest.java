@@ -15,6 +15,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.Arrays;
 import java.util.List;
+import javax.annotation.Nullable;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -33,6 +34,7 @@ public class ThreadCheckerAbstractMethodsTest {
   @Parameterized.Parameter(1)
   public Class<?> cls2;
 
+  @Nullable
   @Parameterized.Parameter(2)
   public RunOn runOn;
 
