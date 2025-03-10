@@ -9,13 +9,14 @@ package com.facebook.ads.injkit.benchmark;
 
 import com.facebook.ads.injkit.TransformationEnvironment;
 import java.io.PrintWriter;
+import javax.annotation.Nullable;
 
 class BenchmarkConfigurationWriter<T extends TransformationEnvironment.ConfigurationFileWriter<T>>
     implements TransformationEnvironment.ModuleConfigurationWriter<T> {
   private final T configurationFileWriter;
   private boolean enabled;
-  private String benchmarkAnnotationClassName;
-  private String benchmarkReceiverClassName;
+  @Nullable private String benchmarkAnnotationClassName;
+  @Nullable private String benchmarkReceiverClassName;
 
   public BenchmarkConfigurationWriter(T configurationFileWriter) {
     this.configurationFileWriter = configurationFileWriter;
