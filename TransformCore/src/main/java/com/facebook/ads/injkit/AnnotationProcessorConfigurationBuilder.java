@@ -8,13 +8,16 @@
 package com.facebook.ads.injkit;
 
 import com.facebook.ads.injkit.model.ModelFactory;
+import com.facebook.infer.annotation.Nullsafe;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.annotation.Nullable;
 
+@Nullsafe(Nullsafe.Mode.LOCAL)
 public class AnnotationProcessorConfigurationBuilder {
-  private File configurationFile;
+  @Nullable private File configurationFile;
   private final List<FilePair> files = new ArrayList<>();
   private final List<File> classpathElements = new ArrayList<>();
   private ClassFileProcessorFactory classFileProcessorFactory =
