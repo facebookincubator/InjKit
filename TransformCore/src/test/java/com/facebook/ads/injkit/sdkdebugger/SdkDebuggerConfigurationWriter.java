@@ -9,13 +9,14 @@ package com.facebook.ads.injkit.sdkdebugger;
 
 import com.facebook.ads.injkit.TransformationEnvironment;
 import java.io.PrintWriter;
+import javax.annotation.Nullable;
 
 public class SdkDebuggerConfigurationWriter<
         T extends TransformationEnvironment.ConfigurationFileWriter<T>>
     implements TransformationEnvironment.ModuleConfigurationWriter<T> {
   private final T configurationFileWriter;
-  private String logCallAnnotationName;
-  private String loggerClassName;
+  @Nullable private String logCallAnnotationName;
+  @Nullable private String loggerClassName;
 
   public SdkDebuggerConfigurationWriter(T configurationFileWriter) {
     this.configurationFileWriter = configurationFileWriter;
