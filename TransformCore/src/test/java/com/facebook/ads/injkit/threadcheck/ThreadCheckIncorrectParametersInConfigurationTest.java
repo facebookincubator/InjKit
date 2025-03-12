@@ -100,7 +100,7 @@ public class ThreadCheckIncorrectParametersInConfigurationTest {
   }
 
   @Nullable
-  private static String buildValue(String param, String value) {
+  private static String buildValue(String param, @Nullable String value) {
     if (value == null) {
       return null;
     }
