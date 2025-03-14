@@ -7,6 +7,9 @@
 
 package com.facebook.ads.injkit.model;
 
+import com.facebook.infer.annotation.Nullsafe;
+
+@Nullsafe(Nullsafe.Mode.LOCAL)
 @FunctionalInterface
 public interface ModelFactory {
   Model make();
