@@ -11,6 +11,7 @@ import static com.google.common.base.StandardSystemProperty.JAVA_CLASS_PATH;
 import static com.google.common.base.StandardSystemProperty.PATH_SEPARATOR;
 
 import com.facebook.ads.injkit.model.Model;
+import com.facebook.infer.annotation.Nullsafe;
 import com.google.common.base.Splitter;
 import java.io.File;
 import java.io.IOException;
@@ -26,6 +27,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+@Nullsafe(Nullsafe.Mode.LOCAL)
 class AnnotationProcessorImpl implements AnnotationProcessor {
   private final MultiFileHandler multiFileHandler;
   private final List<File> classpathElements;
@@ -51,6 +53,7 @@ class AnnotationProcessorImpl implements AnnotationProcessor {
 
     URL[] urls = new URL[classpathElements.size()];
     for (int i = 0; i < classpathElements.size(); i++) {
+      // NULLSAFE_FIXME[Not Vetted Third-Party]
       urls[i] = classpathElements.get(i).toURI().toURL();
     }
 
@@ -101,6 +104,7 @@ class AnnotationProcessorImpl implements AnnotationProcessor {
           }
         }
       } else {
+        // NULLSAFE_FIXME[Not Vetted Third-Party]
         for (String path : Splitter.on(PATH_SEPARATOR.value()).split(JAVA_CLASS_PATH.value())) {
           if (!path.endsWith(".jar")) {
             continue;
