@@ -12,7 +12,9 @@ import com.facebook.ads.injkit.InvalidAnnotationProcessorConfigurationException;
 import com.facebook.ads.injkit.LineDirectiveSplit;
 import com.facebook.ads.injkit.ParseContext;
 import com.facebook.ads.injkit.UniqueSetting;
+import com.facebook.infer.annotation.Nullsafe;
 
+@Nullsafe(Nullsafe.Mode.LOCAL)
 class BenchmarkConfigurationParser implements ConfigurationParser<BenchmarkConfiguration> {
   private final UniqueSetting benchmarkEnabled =
       new UniqueSetting(BenchmarkConfigurationConstants.ENABLED);
@@ -44,6 +46,7 @@ class BenchmarkConfigurationParser implements ConfigurationParser<BenchmarkConfi
       throws InvalidAnnotationProcessorConfigurationException {
     if (!benchmarkEnabled.isSet() || !benchmarkEnabled.asBoolean(ctx)) {
       return BenchmarkConfiguration.makeDisabled(
+          // NULLSAFE_FIXME[Parameter Not Nullable]
           benchmarkAnnotationClass.isSet() ? benchmarkAnnotationClass.getValue(ctx) : null);
     }
 
