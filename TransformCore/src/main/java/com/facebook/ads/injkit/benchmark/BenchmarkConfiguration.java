@@ -7,6 +7,9 @@
 
 package com.facebook.ads.injkit.benchmark;
 
+import com.facebook.infer.annotation.Nullsafe;
+
+@Nullsafe(Nullsafe.Mode.LOCAL)
 public class BenchmarkConfiguration {
   private final boolean benchmarkEnabled;
   private final String benchmarkAnnotationClass;
@@ -20,6 +23,7 @@ public class BenchmarkConfiguration {
   }
 
   static BenchmarkConfiguration makeDisabled(String benchmarkAnnotationClass) {
+    // NULLSAFE_FIXME[Parameter Not Nullable]
     return new BenchmarkConfiguration(false, benchmarkAnnotationClass, null);
   }
 
