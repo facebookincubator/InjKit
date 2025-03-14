@@ -7,6 +7,9 @@
 
 package com.facebook.ads.injkit.sdkdebugger;
 
+import com.facebook.infer.annotation.Nullsafe;
+
+@Nullsafe(Nullsafe.Mode.LOCAL)
 public class SdkDebuggerConfiguration {
   private final boolean enabled;
   private final String logCallAnnotationClass;
@@ -20,6 +23,7 @@ public class SdkDebuggerConfiguration {
   }
 
   static SdkDebuggerConfiguration makeDisabled() {
+    // NULLSAFE_FIXME[Parameter Not Nullable]
     return new SdkDebuggerConfiguration(false, null, null);
   }
 
