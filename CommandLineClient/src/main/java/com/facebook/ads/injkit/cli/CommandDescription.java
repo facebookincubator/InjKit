@@ -7,6 +7,7 @@
 
 package com.facebook.ads.injkit.cli;
 
+import com.facebook.infer.annotation.Nullsafe;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +15,7 @@ import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+@Nullsafe(Nullsafe.Mode.LOCAL)
 public class CommandDescription {
   private static final Pattern COMMAND_PATTERN = Pattern.compile("--([^=]+)(?:=(.*))");
 
@@ -67,6 +69,7 @@ public class CommandDescription {
           break;
         case CLASSPATH_COMMAND:
           for (String element :
+              // NULLSAFE_FIXME[Parameter Not Nullable]
               argumentNameAndValue.getValue().split(System.getProperty("path.separator"))) {
             classpath.add(new File(element));
           }
@@ -117,6 +120,7 @@ public class CommandDescription {
       throw new CliException(String.format(Locale.US, "Invalid argument format: '%s'", argument));
     }
 
+    // NULLSAFE_FIXME[Parameter Not Nullable]
     return new ArgumentNameAndValue(matcher.group(1), matcher.group(2));
   }
 
