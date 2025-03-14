@@ -7,6 +7,7 @@
 
 package com.facebook.ads.injkit;
 
+import com.facebook.infer.annotation.Nullsafe;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -19,6 +20,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipException;
 import java.util.zip.ZipFile;
 
+@Nullsafe(Nullsafe.Mode.LOCAL)
 class ZipRecursionHandler {
   private ZipRecursionHandler() {}
 
@@ -62,6 +64,7 @@ class ZipRecursionHandler {
 
         try (InputStream fileInput = inputZipFile.getInputStream(nextEntry);
             ClassFileDetectorStream cfds =
+                // NULLSAFE_FIXME[Parameter Not Nullable]
                 new ClassFileDetectorStream(nextEntry.getName(), fileInput)) {
           try {
             zipEntryConsumer.consumeZipEntry(nextEntry.getName(), cfds.isClass(), cfds);
