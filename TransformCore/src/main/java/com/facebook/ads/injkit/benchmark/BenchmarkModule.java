@@ -10,7 +10,9 @@ package com.facebook.ads.injkit.benchmark;
 import com.facebook.ads.injkit.ConfigurationParser;
 import com.facebook.ads.injkit.InjectorFactory;
 import com.facebook.ads.injkit.Module;
+import com.facebook.infer.annotation.Nullsafe;
 
+@Nullsafe(Nullsafe.Mode.LOCAL)
 public class BenchmarkModule implements Module<BenchmarkConfiguration> {
   @Override
   public ConfigurationParser<BenchmarkConfiguration> makeConfigurationParser() {
