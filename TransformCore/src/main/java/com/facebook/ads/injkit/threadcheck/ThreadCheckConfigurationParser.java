@@ -12,7 +12,9 @@ import com.facebook.ads.injkit.InvalidAnnotationProcessorConfigurationException;
 import com.facebook.ads.injkit.LineDirectiveSplit;
 import com.facebook.ads.injkit.ParseContext;
 import com.facebook.ads.injkit.UniqueSetting;
+import com.facebook.infer.annotation.Nullsafe;
 
+@Nullsafe(Nullsafe.Mode.LOCAL)
 class ThreadCheckConfigurationParser implements ConfigurationParser<ThreadCheckConfiguration> {
   private final UniqueSetting enabledSetting =
       new UniqueSetting(ThreadCheckConfigurationConstants.ENABLED);
@@ -63,9 +65,13 @@ class ThreadCheckConfigurationParser implements ConfigurationParser<ThreadCheckC
 
     return new ThreadCheckConfiguration(
         false,
+        // NULLSAFE_FIXME[Parameter Not Nullable]
         uiThreadAnnotationClass.isSet() ? uiThreadAnnotationClass.getValue(ctx) : null,
+        // NULLSAFE_FIXME[Parameter Not Nullable]
         workerThreadAnnotationClass.isSet() ? workerThreadAnnotationClass.getValue(ctx) : null,
+        // NULLSAFE_FIXME[Parameter Not Nullable]
         anyThreadAnnotationClass.isSet() ? anyThreadAnnotationClass.getValue(ctx) : null,
+        // NULLSAFE_FIXME[Parameter Not Nullable]
         violationHandlerClass.isSet() ? violationHandlerClass.getValue(ctx) : null);
   }
 }
