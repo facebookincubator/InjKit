@@ -7,11 +7,13 @@
 
 package com.facebook.ads.injkit.model;
 
+import com.facebook.infer.annotation.Nullsafe;
 import java.util.Locale;
 import java.util.Set;
 import java.util.stream.Collectors;
 import org.objectweb.asm.tree.MethodNode;
 
+@Nullsafe(Nullsafe.Mode.LOCAL)
 class KnownMethod {
   private final String name;
   private final String desc;
@@ -20,11 +22,14 @@ class KnownMethod {
   private final Object annotationDefaultValue;
 
   KnownMethod(MethodNode methodNode) {
+    // NULLSAFE_FIXME[Not Vetted Third-Party]
     name = methodNode.name;
+    // NULLSAFE_FIXME[Not Vetted Third-Party]
     desc = methodNode.desc;
     access = methodNode.access;
     annotations =
         KnownAnnotation.from(methodNode.visibleAnnotations, methodNode.invisibleAnnotations);
+    // NULLSAFE_FIXME[Not Vetted Third-Party]
     annotationDefaultValue = methodNode.annotationDefault;
   }
 
