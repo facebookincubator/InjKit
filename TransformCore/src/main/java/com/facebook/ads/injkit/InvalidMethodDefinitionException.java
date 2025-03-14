@@ -7,6 +7,9 @@
 
 package com.facebook.ads.injkit;
 
+import com.facebook.infer.annotation.Nullsafe;
+
+@Nullsafe(Nullsafe.Mode.LOCAL)
 public class InvalidMethodDefinitionException extends AnnotationProcessingException {
   public InvalidMethodDefinitionException(String description) {
     super(description);
