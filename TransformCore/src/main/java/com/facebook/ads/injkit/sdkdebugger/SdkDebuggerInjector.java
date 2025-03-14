@@ -14,6 +14,7 @@ import com.facebook.ads.injkit.InvalidAnnotationProcessorConfigurationException;
 import com.facebook.ads.injkit.NopInjector;
 import com.facebook.ads.injkit.ReflectUtils;
 import com.facebook.ads.injkit.model.Model;
+import com.facebook.infer.annotation.Nullsafe;
 import java.lang.annotation.Annotation;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -31,6 +32,7 @@ import org.objectweb.asm.tree.LdcInsnNode;
 import org.objectweb.asm.tree.MethodInsnNode;
 import org.objectweb.asm.tree.MethodNode;
 
+@Nullsafe(Nullsafe.Mode.LOCAL)
 class SdkDebuggerInjector extends BaseInjector {
   private static final String LOG_CALL_METHOD_NAME = "logCall";
   private static final String METHOD_DESCRIPTION_PARAM = "description";
@@ -98,14 +100,17 @@ class SdkDebuggerInjector extends BaseInjector {
     validateHandler(handler);
 
     return new SdkDebuggerInjector(
+        // NULLSAFE_FIXME[Not Vetted Third-Party]
         Type.getInternalName(handler),
         loadAnnotation(applicationCode, config.getLogCallAnnotationClass()));
   }
 
   @Override
   protected void processImpl(ClassNode clsNode, Model model) {
+    // NULLSAFE_FIXME[Not Vetted Third-Party]
     for (MethodNode method : clsNode.methods) {
       AnnotationNode foundAnnotation =
+          // NULLSAFE_FIXME[Not Vetted Third-Party]
           findAndRemoveAnnotation(method.visibleAnnotations, method.invisibleAnnotations);
       if (foundAnnotation != null) {
         injectLogCall(method, getAnnotationDescription(foundAnnotation));
@@ -123,6 +128,7 @@ class SdkDebuggerInjector extends BaseInjector {
       Iterator<AnnotationNode> visibleIt = list.iterator();
       while (visibleIt.hasNext()) {
         AnnotationNode annotation = visibleIt.next();
+        // NULLSAFE_FIXME[Not Vetted Third-Party]
         String nextDesc = annotation.desc;
 
         if (nextDesc.equals(
@@ -133,6 +139,7 @@ class SdkDebuggerInjector extends BaseInjector {
       }
     }
 
+    // NULLSAFE_FIXME[Return Not Nullable]
     return null;
   }
 
@@ -160,17 +167,22 @@ class SdkDebuggerInjector extends BaseInjector {
             LOG_CALL_METHOD_NAME,
             "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V",
             false);
+    // NULLSAFE_FIXME[Not Vetted Third-Party]
     method.instructions.insert(logCallMethod);
+    // NULLSAFE_FIXME[Not Vetted Third-Party]
     method.instructions.insertBefore(logCallMethod, new LdcInsnNode(method.name));
+    // NULLSAFE_FIXME[Not Vetted Third-Party]
     method.instructions.insertBefore(logCallMethod, new LdcInsnNode(description));
     // Method hash used to differentiate between different instances.
     // Hex value better for external readability than default signed integer
     String methodHash = Integer.toString(method.hashCode(), 16);
+    // NULLSAFE_FIXME[Not Vetted Third-Party]
     method.instructions.insertBefore(logCallMethod, new LdcInsnNode(methodHash));
   }
 
   private static String getAnnotationDescription(AnnotationNode annotation) {
     if (annotation.values == null) {
+      // NULLSAFE_FIXME[Return Not Nullable]
       return null;
     }
 
@@ -186,6 +198,7 @@ class SdkDebuggerInjector extends BaseInjector {
       }
     }
 
+    // NULLSAFE_FIXME[Return Not Nullable]
     return null;
   }
 }
