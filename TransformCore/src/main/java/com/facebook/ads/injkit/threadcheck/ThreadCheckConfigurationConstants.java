@@ -7,6 +7,9 @@
 
 package com.facebook.ads.injkit.threadcheck;
 
+import com.facebook.infer.annotation.Nullsafe;
+
+@Nullsafe(Nullsafe.Mode.LOCAL)
 public class ThreadCheckConfigurationConstants {
   private ThreadCheckConfigurationConstants() {}
 
