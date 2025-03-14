@@ -8,8 +8,10 @@
 package com.facebook.ads.injkit;
 
 import com.facebook.ads.injkit.model.Model;
+import com.facebook.infer.annotation.Nullsafe;
 import org.objectweb.asm.tree.ClassNode;
 
+@Nullsafe(Nullsafe.Mode.LOCAL)
 public class NopInjector extends BaseInjector {
 
   public NopInjector() {
