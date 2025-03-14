@@ -13,6 +13,7 @@ import com.facebook.ads.injkit.BaseInjector;
 import com.facebook.ads.injkit.InvalidAnnotationProcessorConfigurationException;
 import com.facebook.ads.injkit.ReflectUtils;
 import com.facebook.ads.injkit.model.Model;
+import com.facebook.infer.annotation.Nullsafe;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -30,6 +31,7 @@ import org.objectweb.asm.tree.LdcInsnNode;
 import org.objectweb.asm.tree.MethodInsnNode;
 import org.objectweb.asm.tree.MethodNode;
 
+@Nullsafe(Nullsafe.Mode.LOCAL)
 class ThreadCheckInjector extends BaseInjector {
   private static final String ANDROID_LOOPER = "android/os/Looper";
   private static final String GET_CURRENT_LOOPER = "myLooper";
@@ -93,6 +95,7 @@ class ThreadCheckInjector extends BaseInjector {
       throws AnnotationProcessingException {
     // Skip class initialization methods because we cannot override their thread check
     // parameters.
+    // NULLSAFE_FIXME[Not Vetted Third-Party]
     if (method.name.equals(AsmNameUtils.CL_INIT)) {
       return;
     }
@@ -112,10 +115,12 @@ class ThreadCheckInjector extends BaseInjector {
   }
 
   private void removeChecking(ClassNode classNode) {
+    // NULLSAFE_FIXME[Not Vetted Third-Party]
     removeChecking(classNode.visibleAnnotations, classNode.invisibleAnnotations);
   }
 
   private void removeChecking(MethodNode methodNode) {
+    // NULLSAFE_FIXME[Not Vetted Third-Party]
     removeChecking(methodNode.visibleAnnotations, methodNode.invisibleAnnotations);
   }
 
@@ -193,6 +198,7 @@ class ThreadCheckInjector extends BaseInjector {
     }
 
     return model.closureWithAnnotationFilter(
+        // NULLSAFE_FIXME[Not Vetted Third-Party]
         node.name, AsmNameUtils.classJavaNameToDescriptor(className));
   }
 
@@ -239,8 +245,11 @@ class ThreadCheckInjector extends BaseInjector {
     }
 
     return model.methodClosureWithAnnotationFilter(
+        // NULLSAFE_FIXME[Not Vetted Third-Party]
         node.name,
+        // NULLSAFE_FIXME[Not Vetted Third-Party]
         method.name,
+        // NULLSAFE_FIXME[Not Vetted Third-Party]
         method.desc,
         method.access,
         AsmNameUtils.classJavaNameToDescriptor(className));
