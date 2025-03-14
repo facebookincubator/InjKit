@@ -8,6 +8,7 @@
 package com.facebook.ads.injkit;
 
 import com.facebook.ads.injkit.model.Model;
+import com.facebook.infer.annotation.Nullsafe;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -20,6 +21,7 @@ import java.util.Locale;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
+@Nullsafe(Nullsafe.Mode.LOCAL)
 class SingleFileHandler {
   private final FilePair inputOutputPair;
   private final ClassFileProcessor classFileProcessor;
@@ -37,8 +39,10 @@ class SingleFileHandler {
 
   public void process() throws IOException, AnnotationProcessingException {
     File parent = inputOutputPair.getOutput().getParentFile();
+    // NULLSAFE_FIXME[Nullable Dereference]
     if (!parent.isDirectory() && !parent.mkdirs()) {
       throw new IOException(
+          // NULLSAFE_FIXME[Nullable Dereference]
           String.format(Locale.US, "Failed to create directory '%s'", parent.getCanonicalPath()));
     }
 
@@ -135,6 +139,7 @@ class SingleFileHandler {
 
   private static void executeActionWithTempFile(ActionWithTempFile action)
       throws IOException, AnnotationProcessingException {
+    // NULLSAFE_FIXME[Not Vetted Third-Party]
     File temp = File.createTempFile("anpr", "zip");
     action.execute(temp);
     if (!temp.delete()) {
