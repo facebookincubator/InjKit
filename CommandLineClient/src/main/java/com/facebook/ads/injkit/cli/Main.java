@@ -8,7 +8,9 @@
 package com.facebook.ads.injkit.cli;
 
 import com.facebook.ads.injkit.AnnotationProcessorConfigurationBuilder;
+import com.facebook.infer.annotation.Nullsafe;
 
+@Nullsafe(Nullsafe.Mode.LOCAL)
 public class Main {
   // --input=<input file>
   // --output=<output file>
