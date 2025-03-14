@@ -8,9 +8,11 @@
 package com.facebook.ads.injkit;
 
 import com.facebook.ads.injkit.model.Model;
+import com.facebook.infer.annotation.Nullsafe;
 import java.util.function.Predicate;
 import org.objectweb.asm.tree.ClassNode;
 
+@Nullsafe(Nullsafe.Mode.LOCAL)
 public abstract class BaseInjector implements Injector {
   private final Predicate<String> isPackageIgnored;
 
@@ -22,6 +24,7 @@ public abstract class BaseInjector implements Injector {
   public final void process(ClassNode clsNode, Model model) throws AnnotationProcessingException {
     if (isPackageIgnored.test(
         AsmNameUtils.packageJavaNameFromClassJavaName(
+            // NULLSAFE_FIXME[Not Vetted Third-Party]
             AsmNameUtils.classInternalNameToJavaName(clsNode.name)))) {
       return;
     }
@@ -37,6 +40,7 @@ public abstract class BaseInjector implements Injector {
       throws AnnotationProcessingException;
 
   private static boolean shouldSkipClass(ClassNode classNode) {
+    // NULLSAFE_FIXME[Not Vetted Third-Party]
     return AsmNameUtils.classInternalNameToJavaName(classNode.name).endsWith(".package-info");
   }
 }
