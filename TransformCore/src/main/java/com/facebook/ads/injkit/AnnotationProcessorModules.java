@@ -11,8 +11,10 @@ import com.facebook.ads.injkit.benchmark.BenchmarkModule;
 import com.facebook.ads.injkit.crashshield.CrashShieldModule;
 import com.facebook.ads.injkit.sdkdebugger.SdkDebuggerModule;
 import com.facebook.ads.injkit.threadcheck.ThreadCheckModule;
+import com.facebook.infer.annotation.Nullsafe;
 import java.util.Arrays;
 
+@Nullsafe(Nullsafe.Mode.LOCAL)
 class AnnotationProcessorModules {
   private AnnotationProcessorModules() {}
 
