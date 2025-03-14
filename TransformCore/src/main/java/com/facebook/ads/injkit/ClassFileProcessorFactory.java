@@ -8,8 +8,10 @@
 package com.facebook.ads.injkit;
 
 import com.facebook.ads.injkit.model.Model;
+import com.facebook.infer.annotation.Nullsafe;
 import java.net.URLClassLoader;
 
+@Nullsafe(Nullsafe.Mode.LOCAL)
 @FunctionalInterface
 public interface ClassFileProcessorFactory {
   ClassFileProcessor make(
