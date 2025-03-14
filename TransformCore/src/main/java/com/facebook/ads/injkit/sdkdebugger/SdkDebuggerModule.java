@@ -10,7 +10,9 @@ package com.facebook.ads.injkit.sdkdebugger;
 import com.facebook.ads.injkit.ConfigurationParser;
 import com.facebook.ads.injkit.InjectorFactory;
 import com.facebook.ads.injkit.Module;
+import com.facebook.infer.annotation.Nullsafe;
 
+@Nullsafe(Nullsafe.Mode.LOCAL)
 public class SdkDebuggerModule implements Module<SdkDebuggerConfiguration> {
   @Override
   public ConfigurationParser<SdkDebuggerConfiguration> makeConfigurationParser() {
