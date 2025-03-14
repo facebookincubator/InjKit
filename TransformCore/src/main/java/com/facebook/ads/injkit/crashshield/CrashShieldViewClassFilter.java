@@ -8,6 +8,7 @@
 package com.facebook.ads.injkit.crashshield;
 
 import com.facebook.ads.injkit.model.Model;
+import com.facebook.infer.annotation.Nullsafe;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -15,6 +16,7 @@ import java.util.Set;
 import org.objectweb.asm.tree.ClassNode;
 import org.objectweb.asm.tree.MethodNode;
 
+@Nullsafe(Nullsafe.Mode.LOCAL)
 public class CrashShieldViewClassFilter {
   // Maps method names to the descriptors
   private static final Map<String, String> FILTER_AUTO_PROCESSED_METHODS;
@@ -89,19 +91,24 @@ public class CrashShieldViewClassFilter {
     String methodDesc = FILTER_AUTO_PROCESSED_METHODS.get(method.name);
     return methodDesc != null
         && (methodDesc.equals(method.desc)
+            // NULLSAFE_FIXME[Not Vetted Third-Party]
             || model.hierarchicalClosure(classNode.name).contains(ASYNC_TASK_INAME))
         && FILTER_AUTO_PROCESSED_INAMES.stream()
+            // NULLSAFE_FIXME[Not Vetted Third-Party]
             .map(x -> model.hierarchicalClosure(classNode.name).contains(x))
+            // NULLSAFE_FIXME[Not Vetted Third-Party]
             .reduce(false, (x, y) -> x || y);
   }
 
   private static boolean hierarchyContainsViewGroupAndroidChild(Set<String> hierarchicalClosure) {
     return EXCLUDE_FROM_VIEW_FILTER_INAMES.stream()
         .map(hierarchicalClosure::contains)
+        // NULLSAFE_FIXME[Not Vetted Third-Party]
         .reduce(false, (x, y) -> x || y);
   }
 
   public static boolean isViewClassChild(ClassNode classNode, Model model) {
+    // NULLSAFE_FIXME[Not Vetted Third-Party]
     Set<String> hierarchicalClosure = model.hierarchicalClosure(classNode.name);
     return (hierarchicalClosure.contains(VIEW_INAME)
             || hierarchicalClosure.contains(VIEW_GROUP_INAME))
