@@ -7,6 +7,9 @@
 
 package com.facebook.ads.injkit.crashshield;
 
+import com.facebook.infer.annotation.Nullsafe;
+
+@Nullsafe(Nullsafe.Mode.LOCAL)
 public final class CrashShieldConfigurationConstants {
   private CrashShieldConfigurationConstants() {}
 
