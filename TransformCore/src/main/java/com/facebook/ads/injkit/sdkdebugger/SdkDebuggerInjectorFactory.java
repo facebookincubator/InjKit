@@ -10,8 +10,10 @@ package com.facebook.ads.injkit.sdkdebugger;
 import com.facebook.ads.injkit.Injector;
 import com.facebook.ads.injkit.InjectorFactory;
 import com.facebook.ads.injkit.InvalidAnnotationProcessorConfigurationException;
+import com.facebook.infer.annotation.Nullsafe;
 import java.net.URLClassLoader;
 
+@Nullsafe(Nullsafe.Mode.LOCAL)
 class SdkDebuggerInjectorFactory implements InjectorFactory<SdkDebuggerConfiguration> {
   @Override
   public Injector make(URLClassLoader applicationCode, SdkDebuggerConfiguration configuration)
