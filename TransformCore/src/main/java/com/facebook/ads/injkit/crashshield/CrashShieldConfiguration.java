@@ -7,6 +7,9 @@
 
 package com.facebook.ads.injkit.crashshield;
 
+import com.facebook.infer.annotation.Nullsafe;
+
+@Nullsafe(Nullsafe.Mode.LOCAL)
 public class CrashShieldConfiguration {
   private final boolean enabled;
   private final String disableAnnotationClass;
@@ -31,6 +34,7 @@ public class CrashShieldConfiguration {
   }
 
   static CrashShieldConfiguration makeDisabled() {
+    // NULLSAFE_FIXME[Parameter Not Nullable]
     return new CrashShieldConfiguration(false, null, null, null, false, false);
   }
 
