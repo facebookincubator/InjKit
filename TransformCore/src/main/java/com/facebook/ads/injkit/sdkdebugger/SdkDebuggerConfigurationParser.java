@@ -12,7 +12,9 @@ import com.facebook.ads.injkit.InvalidAnnotationProcessorConfigurationException;
 import com.facebook.ads.injkit.LineDirectiveSplit;
 import com.facebook.ads.injkit.ParseContext;
 import com.facebook.ads.injkit.UniqueSetting;
+import com.facebook.infer.annotation.Nullsafe;
 
+@Nullsafe(Nullsafe.Mode.LOCAL)
 class SdkDebuggerConfigurationParser implements ConfigurationParser<SdkDebuggerConfiguration> {
 
   private final UniqueSetting sdkDebuggerEnabled =
