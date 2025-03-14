@@ -7,6 +7,9 @@
 
 package com.facebook.ads.injkit;
 
+import com.facebook.infer.annotation.Nullsafe;
+
+@Nullsafe(Nullsafe.Mode.LOCAL)
 public class AsmNameUtils {
   public static final String CL_INIT = "<clinit>";
   public static final String INIT = "<init>";
