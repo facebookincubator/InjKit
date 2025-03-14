@@ -7,8 +7,10 @@
 
 package com.facebook.ads.injkit.cli;
 
+import com.facebook.infer.annotation.Nullsafe;
 import java.util.Locale;
 
+@Nullsafe(Nullsafe.Mode.LOCAL)
 public class CliException extends Exception {
   public CliException(String fmt, Object... values) {
     super(String.format(Locale.US, fmt, values));
