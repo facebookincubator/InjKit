@@ -7,9 +7,11 @@
 
 package com.facebook.ads.injkit;
 
+import com.facebook.infer.annotation.Nullsafe;
 import java.util.Locale;
 import java.util.regex.Pattern;
 
+@Nullsafe(Nullsafe.Mode.LOCAL)
 public class LineDirectiveSplit {
   private final String directive;
   private final String contents;
