@@ -7,10 +7,12 @@
 
 package com.facebook.ads.injkit;
 
+import com.facebook.infer.annotation.Nullsafe;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
 
+@Nullsafe(Nullsafe.Mode.LOCAL)
 class ClassFileDetectorStream extends InputStream {
   // All class files start with this magic sequence.
   // CAFEBABE, but in bigendian notation.
