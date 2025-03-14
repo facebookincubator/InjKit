@@ -7,8 +7,10 @@
 
 package com.facebook.ads.injkit;
 
+import com.facebook.infer.annotation.Nullsafe;
 import java.util.Locale;
 
+@Nullsafe(Nullsafe.Mode.LOCAL)
 public class UniqueSetting {
   private final String name;
   private String value;
