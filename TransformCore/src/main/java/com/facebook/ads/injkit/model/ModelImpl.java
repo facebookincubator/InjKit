@@ -7,6 +7,7 @@
 
 package com.facebook.ads.injkit.model;
 
+import com.facebook.infer.annotation.Nullsafe;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -15,6 +16,7 @@ import java.util.Set;
 import org.objectweb.asm.Type;
 import org.objectweb.asm.tree.ClassNode;
 
+@Nullsafe(Nullsafe.Mode.LOCAL)
 class ModelImpl implements Model {
   // Known classes mapped by internal name.
   private final Map<String, KnownClass> knownClasses = new HashMap<>();
@@ -61,6 +63,7 @@ class ModelImpl implements Model {
 
   @Override
   public Object annotationPropertyOfClass(String iName, String desc, String property) {
+    // NULLSAFE_FIXME[Return Not Nullable]
     return getKnown(iName).getKnownAnnotation(desc).getValue(property);
   }
 
@@ -75,12 +78,15 @@ class ModelImpl implements Model {
     return getKnown(iName)
         .getKnown(name, methodDesc, access)
         .getKnownAnnotation(annotationDesc)
+        // NULLSAFE_FIXME[Return Not Nullable]
         .getValue(property);
   }
 
   @Override
   public boolean knowsAnnotation(String desc) {
+    // NULLSAFE_FIXME[Not Vetted Third-Party]
     String iName = Type.getType(desc).getInternalName();
+    // NULLSAFE_FIXME[Nullable Dereference]
     return knowsClass(iName) && knownClasses.get(iName).isAnnotation();
   }
 
@@ -91,6 +97,7 @@ class ModelImpl implements Model {
 
   @Override
   public Object annotationDefaultValue(String desc, String property) {
+    // NULLSAFE_FIXME[Return Not Nullable]
     return getKnownAnnotation(desc).getPropertyDefaultValue(property);
   }
 
@@ -105,6 +112,7 @@ class ModelImpl implements Model {
   }
 
   private KnownClass getKnownAnnotation(String desc) {
+    // NULLSAFE_FIXME[Not Vetted Third-Party]
     KnownClass cls = getKnown(Type.getType(desc).getInternalName());
     if (!cls.isAnnotation()) {
       throw new IllegalArgumentException(
