@@ -7,8 +7,10 @@
 
 package com.facebook.ads.injkit;
 
+import com.facebook.infer.annotation.Nullsafe;
 import org.objectweb.asm.tree.MethodNode;
 
+@Nullsafe(Nullsafe.Mode.LOCAL)
 public class AsmMethodUtils {
   private static final String CONSTRUCTOR_METHOD_NAME = "<init>";
   private static final String STATIC_INITIALIZER_METHOD_NAME = "<clinit>";
@@ -16,14 +18,17 @@ public class AsmMethodUtils {
   private AsmMethodUtils() {}
 
   public static boolean isConstructor(MethodNode method) {
+    // NULLSAFE_FIXME[Not Vetted Third-Party]
     return method.name.equals(CONSTRUCTOR_METHOD_NAME);
   }
 
   public static boolean isDefaultConstructor(MethodNode method) {
+    // NULLSAFE_FIXME[Not Vetted Third-Party]
     return isConstructor(method) && method.desc.equals("()V");
   }
 
   public static boolean isStaticInitializer(MethodNode method) {
+    // NULLSAFE_FIXME[Not Vetted Third-Party]
     return method.name.equals(STATIC_INITIALIZER_METHOD_NAME);
   }
 
