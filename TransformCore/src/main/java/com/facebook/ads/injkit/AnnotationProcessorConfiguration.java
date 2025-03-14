@@ -7,6 +7,7 @@
 
 package com.facebook.ads.injkit;
 
+import com.facebook.infer.annotation.Nullsafe;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -17,6 +18,7 @@ import java.util.HashSet;
 import java.util.Locale;
 import java.util.Set;
 
+@Nullsafe(Nullsafe.Mode.LOCAL)
 public class AnnotationProcessorConfiguration {
   private final Set<ModuleHandler<?>> handlers;
 
@@ -92,6 +94,7 @@ public class AnnotationProcessorConfiguration {
   private static class ModuleHandler<ConfigurationT> {
     private final Module<ConfigurationT> module;
     private final ConfigurationParser<ConfigurationT> parser;
+    // NULLSAFE_FIXME[Field Not Initialized]
     private ConfigurationT configuration;
 
     ModuleHandler(Module<ConfigurationT> module) {
