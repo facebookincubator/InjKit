@@ -10,8 +10,10 @@ package com.facebook.ads.injkit.crashshield;
 import com.facebook.ads.injkit.Injector;
 import com.facebook.ads.injkit.InjectorFactory;
 import com.facebook.ads.injkit.InvalidAnnotationProcessorConfigurationException;
+import com.facebook.infer.annotation.Nullsafe;
 import java.net.URLClassLoader;
 
+@Nullsafe(Nullsafe.Mode.LOCAL)
 class CrashShieldInjectorFactory implements InjectorFactory<CrashShieldConfiguration> {
   @Override
   public Injector make(URLClassLoader applicationCode, CrashShieldConfiguration configuration)
