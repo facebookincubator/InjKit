@@ -8,6 +8,7 @@
 package com.facebook.ads.injkit;
 
 import com.facebook.ads.injkit.model.Model;
+import com.facebook.infer.annotation.Nullsafe;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -18,6 +19,7 @@ import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.tree.ClassNode;
 
+@Nullsafe(Nullsafe.Mode.LOCAL)
 class ClassFileProcessorImpl implements ClassFileProcessor {
   private final URLClassLoader classLoader;
   private final Collection<Injector> injectors;
@@ -71,6 +73,7 @@ class ClassFileProcessorImpl implements ClassFileProcessor {
               return "java/lang/Object";
             } else {
               do {
+                // NULLSAFE_FIXME[Not Vetted Third-Party]
                 class1 = class1.getSuperclass();
               } while (!class1.isAssignableFrom(class2));
 
