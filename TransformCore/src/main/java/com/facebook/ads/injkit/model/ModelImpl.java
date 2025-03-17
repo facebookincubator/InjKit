@@ -8,6 +8,7 @@
 package com.facebook.ads.injkit.model;
 
 import com.facebook.infer.annotation.Nullsafe;
+import com.google.common.base.Preconditions;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -86,8 +87,7 @@ class ModelImpl implements Model {
   public boolean knowsAnnotation(String desc) {
     // NULLSAFE_FIXME[Not Vetted Third-Party]
     String iName = Type.getType(desc).getInternalName();
-    // NULLSAFE_FIXME[Nullable Dereference]
-    return knowsClass(iName) && knownClasses.get(iName).isAnnotation();
+    return knowsClass(iName) && Preconditions.checkNotNull(knownClasses.get(iName)).isAnnotation();
   }
 
   @Override
