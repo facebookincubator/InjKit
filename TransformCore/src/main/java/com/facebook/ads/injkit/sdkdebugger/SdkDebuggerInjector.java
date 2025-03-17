@@ -24,6 +24,7 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
+import javax.annotation.Nullable;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.Type;
 import org.objectweb.asm.tree.AnnotationNode;
@@ -118,6 +119,7 @@ class SdkDebuggerInjector extends BaseInjector {
     }
   }
 
+  @Nullable
   private AnnotationNode findAndRemoveAnnotation(
       List<AnnotationNode> visibleAnnotations, List<AnnotationNode> invisibleAnnotations) {
     for (List<AnnotationNode> list : Arrays.asList(visibleAnnotations, invisibleAnnotations)) {
@@ -139,7 +141,6 @@ class SdkDebuggerInjector extends BaseInjector {
       }
     }
 
-    // NULLSAFE_FIXME[Return Not Nullable]
     return null;
   }
 
