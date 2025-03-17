@@ -9,6 +9,7 @@ package com.facebook.ads.injkit;
 
 import com.facebook.ads.injkit.model.Model;
 import com.facebook.infer.annotation.Nullsafe;
+import com.google.common.base.Preconditions;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -39,11 +40,12 @@ class SingleFileHandler {
 
   public void process() throws IOException, AnnotationProcessingException {
     File parent = inputOutputPair.getOutput().getParentFile();
-    // NULLSAFE_FIXME[Nullable Dereference]
-    if (!parent.isDirectory() && !parent.mkdirs()) {
+    if (!Preconditions.checkNotNull(parent).isDirectory() && !parent.mkdirs()) {
       throw new IOException(
-          // NULLSAFE_FIXME[Nullable Dereference]
-          String.format(Locale.US, "Failed to create directory '%s'", parent.getCanonicalPath()));
+          String.format(
+              Locale.US,
+              "Failed to create directory '%s'",
+              Preconditions.checkNotNull(parent).getCanonicalPath()));
     }
 
     ZipRecursionHandler.handle(
