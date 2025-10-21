@@ -8,7 +8,7 @@
 package com.facebook.ads.injkit.benchmark;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import com.facebook.ads.injkit.AnnotationProcessorParseTestUtils;
 import com.facebook.ads.injkit.FileUtils;
@@ -78,12 +78,9 @@ public class BenchmarkParametersInConfigurationTest {
             BenchmarkConfigurationConstants.ENABLED + " true",
             BenchmarkConfigurationConstants.ENABLED + " true");
 
-    try {
-      parse(configFile);
-      fail();
-    } catch (InvalidAnnotationProcessorConfigurationException e) {
-      assertThat(e).hasMessageContaining(BenchmarkConfigurationConstants.ENABLED);
-    }
+    assertThatThrownBy(() -> parse(configFile))
+        .isInstanceOf(InvalidAnnotationProcessorConfigurationException.class)
+        .hasMessageContaining(BenchmarkConfigurationConstants.ENABLED);
   }
 
   @Test
@@ -94,12 +91,9 @@ public class BenchmarkParametersInConfigurationTest {
             BenchmarkConfigurationConstants.ANNOTATION_CLASS + " k",
             BenchmarkConfigurationConstants.ENABLED + " foo foo");
 
-    try {
-      parse(configFile);
-      fail();
-    } catch (InvalidAnnotationProcessorConfigurationException e) {
-      assertThat(e).hasMessageContaining(BenchmarkConfigurationConstants.ENABLED);
-    }
+    assertThatThrownBy(() -> parse(configFile))
+        .isInstanceOf(InvalidAnnotationProcessorConfigurationException.class)
+        .hasMessageContaining(BenchmarkConfigurationConstants.ENABLED);
   }
 
   @Test
@@ -110,12 +104,9 @@ public class BenchmarkParametersInConfigurationTest {
             BenchmarkConfigurationConstants.ENABLED + " true",
             BenchmarkConfigurationConstants.RECEIVER_CLASS + " l");
 
-    try {
-      parse(configFile);
-      fail();
-    } catch (InvalidAnnotationProcessorConfigurationException e) {
-      assertThat(e).hasMessageContaining(BenchmarkConfigurationConstants.ANNOTATION_CLASS);
-    }
+    assertThatThrownBy(() -> parse(configFile))
+        .isInstanceOf(InvalidAnnotationProcessorConfigurationException.class)
+        .hasMessageContaining(BenchmarkConfigurationConstants.ANNOTATION_CLASS);
   }
 
   @Test
@@ -128,12 +119,9 @@ public class BenchmarkParametersInConfigurationTest {
             BenchmarkConfigurationConstants.ANNOTATION_CLASS + " k",
             BenchmarkConfigurationConstants.RECEIVER_CLASS + " l");
 
-    try {
-      parse(configFile);
-      fail();
-    } catch (InvalidAnnotationProcessorConfigurationException e) {
-      assertThat(e).hasMessageContaining(BenchmarkConfigurationConstants.ANNOTATION_CLASS);
-    }
+    assertThatThrownBy(() -> parse(configFile))
+        .isInstanceOf(InvalidAnnotationProcessorConfigurationException.class)
+        .hasMessageContaining(BenchmarkConfigurationConstants.ANNOTATION_CLASS);
   }
 
   @Test
@@ -145,12 +133,9 @@ public class BenchmarkParametersInConfigurationTest {
             BenchmarkConfigurationConstants.ANNOTATION_CLASS + " k k",
             BenchmarkConfigurationConstants.RECEIVER_CLASS + " l");
 
-    try {
-      parse(configFile);
-      fail();
-    } catch (InvalidAnnotationProcessorConfigurationException e) {
-      assertThat(e).hasMessageContaining(BenchmarkConfigurationConstants.ANNOTATION_CLASS);
-    }
+    assertThatThrownBy(() -> parse(configFile))
+        .isInstanceOf(InvalidAnnotationProcessorConfigurationException.class)
+        .hasMessageContaining(BenchmarkConfigurationConstants.ANNOTATION_CLASS);
   }
 
   @Test
@@ -161,12 +146,9 @@ public class BenchmarkParametersInConfigurationTest {
             BenchmarkConfigurationConstants.ENABLED + " true",
             BenchmarkConfigurationConstants.ANNOTATION_CLASS + " k");
 
-    try {
-      parse(configFile);
-      fail();
-    } catch (InvalidAnnotationProcessorConfigurationException e) {
-      assertThat(e).hasMessageContaining(BenchmarkConfigurationConstants.RECEIVER_CLASS);
-    }
+    assertThatThrownBy(() -> parse(configFile))
+        .isInstanceOf(InvalidAnnotationProcessorConfigurationException.class)
+        .hasMessageContaining(BenchmarkConfigurationConstants.RECEIVER_CLASS);
   }
 
   @Test
@@ -179,12 +161,9 @@ public class BenchmarkParametersInConfigurationTest {
             BenchmarkConfigurationConstants.RECEIVER_CLASS + " l",
             BenchmarkConfigurationConstants.RECEIVER_CLASS + " l");
 
-    try {
-      parse(configFile);
-      fail();
-    } catch (InvalidAnnotationProcessorConfigurationException e) {
-      assertThat(e).hasMessageContaining(BenchmarkConfigurationConstants.RECEIVER_CLASS);
-    }
+    assertThatThrownBy(() -> parse(configFile))
+        .isInstanceOf(InvalidAnnotationProcessorConfigurationException.class)
+        .hasMessageContaining(BenchmarkConfigurationConstants.RECEIVER_CLASS);
   }
 
   @Test
@@ -196,11 +175,8 @@ public class BenchmarkParametersInConfigurationTest {
             BenchmarkConfigurationConstants.ANNOTATION_CLASS + " k",
             BenchmarkConfigurationConstants.RECEIVER_CLASS + " l l");
 
-    try {
-      parse(configFile);
-      fail();
-    } catch (InvalidAnnotationProcessorConfigurationException e) {
-      assertThat(e).hasMessageContaining(BenchmarkConfigurationConstants.RECEIVER_CLASS);
-    }
+    assertThatThrownBy(() -> parse(configFile))
+        .isInstanceOf(InvalidAnnotationProcessorConfigurationException.class)
+        .hasMessageContaining(BenchmarkConfigurationConstants.RECEIVER_CLASS);
   }
 }
