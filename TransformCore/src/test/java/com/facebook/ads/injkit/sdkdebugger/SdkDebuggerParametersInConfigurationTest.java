@@ -8,7 +8,7 @@
 package com.facebook.ads.injkit.sdkdebugger;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import com.facebook.ads.injkit.AnnotationProcessorParseTestUtils;
 import com.facebook.ads.injkit.FileUtils;
@@ -77,12 +77,9 @@ public class SdkDebuggerParametersInConfigurationTest {
             SdkDebuggerConfigurationConstants.CALL_LOGGER + " a",
             SdkDebuggerConfigurationConstants.LOG_CALL_ANNOTATIONS + " b");
 
-    try {
-      parse(configFile);
-      fail();
-    } catch (InvalidAnnotationProcessorConfigurationException e) {
-      assertThat(e).hasMessageContaining("maybe");
-    }
+    assertThatThrownBy(() -> parse(configFile))
+        .isInstanceOf(InvalidAnnotationProcessorConfigurationException.class)
+        .hasMessageContaining("maybe");
   }
 
   @Test
@@ -94,12 +91,9 @@ public class SdkDebuggerParametersInConfigurationTest {
             SdkDebuggerConfigurationConstants.CALL_LOGGER + "",
             SdkDebuggerConfigurationConstants.LOG_CALL_ANNOTATIONS + " b");
 
-    try {
-      parse(configFile);
-      fail();
-    } catch (InvalidAnnotationProcessorConfigurationException e) {
-      assertThat(e).hasMessageContaining(SdkDebuggerConfigurationConstants.CALL_LOGGER);
-    }
+    assertThatThrownBy(() -> parse(configFile))
+        .isInstanceOf(InvalidAnnotationProcessorConfigurationException.class)
+        .hasMessageContaining(SdkDebuggerConfigurationConstants.CALL_LOGGER);
   }
 
   @Test
@@ -111,11 +105,8 @@ public class SdkDebuggerParametersInConfigurationTest {
             SdkDebuggerConfigurationConstants.CALL_LOGGER + " a",
             SdkDebuggerConfigurationConstants.LOG_CALL_ANNOTATIONS + " b p");
 
-    try {
-      parse(configFile);
-      fail();
-    } catch (InvalidAnnotationProcessorConfigurationException e) {
-      assertThat(e).hasMessageContaining(SdkDebuggerConfigurationConstants.LOG_CALL_ANNOTATIONS);
-    }
+    assertThatThrownBy(() -> parse(configFile))
+        .isInstanceOf(InvalidAnnotationProcessorConfigurationException.class)
+        .hasMessageContaining(SdkDebuggerConfigurationConstants.LOG_CALL_ANNOTATIONS);
   }
 }
