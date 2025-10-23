@@ -8,7 +8,7 @@
 package com.facebook.ads.injkit.gradle;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
+import static org.assertj.core.api.Assertions.fail;
 
 import com.google.common.io.ByteStreams;
 import java.io.File;
