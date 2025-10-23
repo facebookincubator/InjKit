@@ -8,10 +8,7 @@
 package com.facebook.ads.injkit.crashshield;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.assertj.core.api.Assertions.fail;
 
 import android.annotation.SuppressLint;
 import android.os.AsyncTask;
@@ -72,8 +69,8 @@ public class CrashShieldAsyncTaskInjectionTest {
     Field paramField = instance.getClass().getField("param");
     Field resultField = instance.getClass().getField("result");
 
-    assertEquals(42, paramField.get(instance));
-    assertEquals(FakeAsyncTask.SUCCESS, resultField.get(instance));
+    assertThat(paramField.get(instance)).isEqualTo(42);
+    assertThat(resultField.get(instance)).isEqualTo(FakeAsyncTask.SUCCESS);
   }
 
   @Test
@@ -89,11 +86,11 @@ public class CrashShieldAsyncTaskInjectionTest {
       doInBackground.setAccessible(true);
       doInBackground.invoke(instance, (Integer) null);
     } catch (Throwable t) {
-      fail();
+      fail("Should not throw exception");
     }
 
-    assertTrue(getBooleanFieldValue(instance, "isBeforeException"));
-    assertFalse(getBooleanFieldValue(instance, "isAfterException"));
+    assertThat(getBooleanFieldValue(instance, "isBeforeException")).isTrue();
+    assertThat(getBooleanFieldValue(instance, "isAfterException")).isFalse();
   }
 
   @Test
@@ -108,11 +105,11 @@ public class CrashShieldAsyncTaskInjectionTest {
       onPreExecute.setAccessible(true);
       onPreExecute.invoke(instance);
     } catch (Throwable t) {
-      fail();
+      fail("Should not throw exception");
     }
 
-    assertTrue(getBooleanFieldValue(instance, "isPreExecuteBeforeException"));
-    assertFalse(getBooleanFieldValue(instance, "isPreExecuteAfterException"));
+    assertThat(getBooleanFieldValue(instance, "isPreExecuteBeforeException")).isTrue();
+    assertThat(getBooleanFieldValue(instance, "isPreExecuteAfterException")).isFalse();
   }
 
   @Test
@@ -127,11 +124,11 @@ public class CrashShieldAsyncTaskInjectionTest {
       onPostExecute.setAccessible(true);
       onPostExecute.invoke(instance, (String) null);
     } catch (Throwable t) {
-      fail();
+      fail("Should not throw exception");
     }
 
-    assertTrue(getBooleanFieldValue(instance, "isPostExecuteBeforeException"));
-    assertFalse(getBooleanFieldValue(instance, "isPostExecuteAfterException"));
+    assertThat(getBooleanFieldValue(instance, "isPostExecuteBeforeException")).isTrue();
+    assertThat(getBooleanFieldValue(instance, "isPostExecuteAfterException")).isFalse();
   }
 
   private ClassLoader processClasses(Class<?>... processingClass) throws Exception {
