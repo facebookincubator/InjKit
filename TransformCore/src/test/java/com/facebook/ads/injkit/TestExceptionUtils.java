@@ -7,7 +7,7 @@
 
 package com.facebook.ads.injkit;
 
-import static org.junit.Assert.fail;
+import static org.assertj.core.api.Assertions.fail;
 
 import java.util.Locale;
 import javax.annotation.Nullable;
