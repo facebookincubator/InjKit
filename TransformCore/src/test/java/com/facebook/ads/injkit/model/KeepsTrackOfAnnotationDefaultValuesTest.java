@@ -8,8 +8,8 @@
 package com.facebook.ads.injkit.model;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.assertj.core.api.Assertions.entry;
-import static org.junit.Assert.fail;
 
 import java.util.Collections;
 import org.junit.Before;
@@ -72,22 +72,14 @@ public class KeepsTrackOfAnnotationDefaultValuesTest {
 
   @Test
   public void cannotTryToGetPropertyValueOfNotKnownAnnotation() {
-    try {
-      model.annotationPropertyOfClass("my/Cls", "Lmy/AnnX;", "aString");
-      fail();
-    } catch (IllegalStateException e) {
-      // Expected.
-    }
+    assertThatThrownBy(() -> model.annotationPropertyOfClass("my/Cls", "Lmy/AnnX;", "aString"))
+        .isInstanceOf(IllegalStateException.class);
   }
 
   @Test
   public void cannotTryToGetPropertyValueOfClassThatIsNotAnnotation() {
-    try {
-      model.annotationDefaultValue("Lmy/Cls;", "aString");
-      fail();
-    } catch (IllegalArgumentException e) {
-      // Expected.
-    }
+    assertThatThrownBy(() -> model.annotationDefaultValue("Lmy/Cls;", "aString"))
+        .isInstanceOf(IllegalArgumentException.class);
   }
 
   @Test
@@ -99,21 +91,13 @@ public class KeepsTrackOfAnnotationDefaultValuesTest {
 
   @Test
   public void cannotObtainAnnotationPropertyTypesIfAnnotationNotKnown() {
-    try {
-      model.annotationProperties("Lmy/AnnX;");
-      fail();
-    } catch (IllegalStateException e) {
-      // Expected.
-    }
+    assertThatThrownBy(() -> model.annotationProperties("Lmy/AnnX;"))
+        .isInstanceOf(IllegalStateException.class);
   }
 
   @Test
   public void cannotObtainAnnotationPropertyTypesIfClassIsNotAnnotation() {
-    try {
-      model.annotationProperties("Lmy/cls;");
-      fail();
-    } catch (IllegalStateException e) {
-      // Expected.
-    }
+    assertThatThrownBy(() -> model.annotationProperties("Lmy/cls;"))
+        .isInstanceOf(IllegalStateException.class);
   }
 }
