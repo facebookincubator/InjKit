@@ -8,7 +8,7 @@
 package com.facebook.ads.injkit;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -25,23 +25,20 @@ public class ReflectUtilsClassLoadingTest {
 
   @Test
   public void doesNotLoadNonAnnotation() {
-    try {
-      ReflectUtils.loadAnnotation(Bar.class.getName(), Bar.class.getClassLoader());
-      fail();
-    } catch (InvalidAnnotationProcessorConfigurationException e) {
-      assertThat(e.getMessage()).contains("Bar");
-      assertThat(e.getMessage()).contains("annotation");
-    }
+    assertThatThrownBy(
+            () -> ReflectUtils.loadAnnotation(Bar.class.getName(), Bar.class.getClassLoader()))
+        .isInstanceOf(InvalidAnnotationProcessorConfigurationException.class)
+        .hasMessageContaining("Bar")
+        .hasMessageContaining("annotation");
   }
 
   @Test
   public void doesNotLoadNonExistingClass() {
-    try {
-      ReflectUtils.loadAnnotation(Bar.class.getName() + "r", Bar.class.getClassLoader());
-      fail();
-    } catch (InvalidAnnotationProcessorConfigurationException e) {
-      assertThat(e.getMessage()).contains("Barr");
-    }
+    assertThatThrownBy(
+            () ->
+                ReflectUtils.loadAnnotation(Bar.class.getName() + "r", Bar.class.getClassLoader()))
+        .isInstanceOf(InvalidAnnotationProcessorConfigurationException.class)
+        .hasMessageContaining("Barr");
   }
 
   public @interface Foo {}
