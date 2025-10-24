@@ -8,9 +8,7 @@
 package com.facebook.ads.injkit.crashshield;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import com.facebook.ads.injkit.AnnotationProcessorParseTestUtils;
 import com.facebook.ads.injkit.FileUtils;
@@ -48,8 +46,8 @@ public class CrashShieldParametersInConfigurationFileTest {
     assertThat(config.getDisableAnnotationClass()).isEqualTo("a");
     assertThat(config.getEnableAnnotationClass()).isEqualTo("b");
     assertThat(config.getExceptionHandlerClass()).isEqualTo("c");
-    assertTrue(config.isShouldProcessConstructors());
-    assertTrue(config.isShouldProcessViews());
+    assertThat(config.isShouldProcessConstructors()).isTrue();
+    assertThat(config.isShouldProcessViews()).isTrue();
   }
 
   @Test
@@ -64,8 +62,8 @@ public class CrashShieldParametersInConfigurationFileTest {
     assertThat(config.getDisableAnnotationClass()).isNull();
     assertThat(config.getEnableAnnotationClass()).isNull();
     assertThat(config.getExceptionHandlerClass()).isNull();
-    assertFalse(config.isShouldProcessConstructors());
-    assertFalse(config.isShouldProcessViews());
+    assertThat(config.isShouldProcessConstructors()).isFalse();
+    assertThat(config.isShouldProcessViews()).isFalse();
   }
 
   @Test
@@ -78,8 +76,8 @@ public class CrashShieldParametersInConfigurationFileTest {
     assertThat(config.getDisableAnnotationClass()).isNull();
     assertThat(config.getEnableAnnotationClass()).isNull();
     assertThat(config.getExceptionHandlerClass()).isNull();
-    assertFalse(config.isShouldProcessConstructors());
-    assertFalse(config.isShouldProcessViews());
+    assertThat(config.isShouldProcessConstructors()).isFalse();
+    assertThat(config.isShouldProcessViews()).isFalse();
   }
 
   @Test
@@ -93,13 +91,9 @@ public class CrashShieldParametersInConfigurationFileTest {
             CrashShieldConfigurationConstants.SHOULD_PROCESS_VIEWS + " true",
             CrashShieldConfigurationConstants.SHOULD_PROCESS_CONSTRUCTOR + " true");
 
-    try {
-      parse(configFile);
-      fail();
-    } catch (InvalidAnnotationProcessorConfigurationException e) {
-      assertThat(e)
-          .hasMessageContaining(CrashShieldConfigurationConstants.DISABLE_ANNOTATION_CLASS);
-    }
+    assertThatThrownBy(() -> parse(configFile))
+        .isInstanceOf(InvalidAnnotationProcessorConfigurationException.class)
+        .hasMessageContaining(CrashShieldConfigurationConstants.DISABLE_ANNOTATION_CLASS);
   }
 
   @Test
@@ -115,13 +109,9 @@ public class CrashShieldParametersInConfigurationFileTest {
             CrashShieldConfigurationConstants.SHOULD_PROCESS_VIEWS + " true",
             CrashShieldConfigurationConstants.SHOULD_PROCESS_CONSTRUCTOR + " true");
 
-    try {
-      parse(configFile);
-      fail();
-    } catch (InvalidAnnotationProcessorConfigurationException e) {
-      assertThat(e)
-          .hasMessageContaining(CrashShieldConfigurationConstants.DISABLE_ANNOTATION_CLASS);
-    }
+    assertThatThrownBy(() -> parse(configFile))
+        .isInstanceOf(InvalidAnnotationProcessorConfigurationException.class)
+        .hasMessageContaining(CrashShieldConfigurationConstants.DISABLE_ANNOTATION_CLASS);
   }
 
   @Test
@@ -136,13 +126,9 @@ public class CrashShieldParametersInConfigurationFileTest {
             CrashShieldConfigurationConstants.SHOULD_PROCESS_VIEWS + " true",
             CrashShieldConfigurationConstants.SHOULD_PROCESS_CONSTRUCTOR + " true");
 
-    try {
-      parse(configFile);
-      fail();
-    } catch (InvalidAnnotationProcessorConfigurationException e) {
-      assertThat(e)
-          .hasMessageContaining(CrashShieldConfigurationConstants.DISABLE_ANNOTATION_CLASS);
-    }
+    assertThatThrownBy(() -> parse(configFile))
+        .isInstanceOf(InvalidAnnotationProcessorConfigurationException.class)
+        .hasMessageContaining(CrashShieldConfigurationConstants.DISABLE_ANNOTATION_CLASS);
   }
 
   @Test
@@ -156,12 +142,9 @@ public class CrashShieldParametersInConfigurationFileTest {
             CrashShieldConfigurationConstants.SHOULD_PROCESS_VIEWS + " true",
             CrashShieldConfigurationConstants.SHOULD_PROCESS_CONSTRUCTOR + " true");
 
-    try {
-      parse(configFile);
-      fail();
-    } catch (InvalidAnnotationProcessorConfigurationException e) {
-      assertThat(e).hasMessageContaining(CrashShieldConfigurationConstants.ENABLE_ANNOTATION_CLASS);
-    }
+    assertThatThrownBy(() -> parse(configFile))
+        .isInstanceOf(InvalidAnnotationProcessorConfigurationException.class)
+        .hasMessageContaining(CrashShieldConfigurationConstants.ENABLE_ANNOTATION_CLASS);
   }
 
   @Test
@@ -177,12 +160,9 @@ public class CrashShieldParametersInConfigurationFileTest {
             CrashShieldConfigurationConstants.SHOULD_PROCESS_VIEWS + " true",
             CrashShieldConfigurationConstants.SHOULD_PROCESS_CONSTRUCTOR + " true");
 
-    try {
-      parse(configFile);
-      fail();
-    } catch (InvalidAnnotationProcessorConfigurationException e) {
-      assertThat(e).hasMessageContaining(CrashShieldConfigurationConstants.ENABLE_ANNOTATION_CLASS);
-    }
+    assertThatThrownBy(() -> parse(configFile))
+        .isInstanceOf(InvalidAnnotationProcessorConfigurationException.class)
+        .hasMessageContaining(CrashShieldConfigurationConstants.ENABLE_ANNOTATION_CLASS);
   }
 
   @Test
@@ -197,12 +177,9 @@ public class CrashShieldParametersInConfigurationFileTest {
             CrashShieldConfigurationConstants.SHOULD_PROCESS_VIEWS + " true",
             CrashShieldConfigurationConstants.SHOULD_PROCESS_CONSTRUCTOR + " true");
 
-    try {
-      parse(configFile);
-      fail();
-    } catch (InvalidAnnotationProcessorConfigurationException e) {
-      assertThat(e).hasMessageContaining(CrashShieldConfigurationConstants.ENABLE_ANNOTATION_CLASS);
-    }
+    assertThatThrownBy(() -> parse(configFile))
+        .isInstanceOf(InvalidAnnotationProcessorConfigurationException.class)
+        .hasMessageContaining(CrashShieldConfigurationConstants.ENABLE_ANNOTATION_CLASS);
   }
 
   @Test
@@ -216,12 +193,9 @@ public class CrashShieldParametersInConfigurationFileTest {
             CrashShieldConfigurationConstants.SHOULD_PROCESS_VIEWS + " true",
             CrashShieldConfigurationConstants.SHOULD_PROCESS_CONSTRUCTOR + " true");
 
-    try {
-      parse(configFile);
-      fail();
-    } catch (InvalidAnnotationProcessorConfigurationException e) {
-      assertThat(e).hasMessageContaining(CrashShieldConfigurationConstants.EXCEPTION_HANDLER_CLASS);
-    }
+    assertThatThrownBy(() -> parse(configFile))
+        .isInstanceOf(InvalidAnnotationProcessorConfigurationException.class)
+        .hasMessageContaining(CrashShieldConfigurationConstants.EXCEPTION_HANDLER_CLASS);
   }
 
   @Test
@@ -237,12 +211,9 @@ public class CrashShieldParametersInConfigurationFileTest {
             CrashShieldConfigurationConstants.SHOULD_PROCESS_VIEWS + " true",
             CrashShieldConfigurationConstants.SHOULD_PROCESS_CONSTRUCTOR + " true");
 
-    try {
-      parse(configFile);
-      fail();
-    } catch (InvalidAnnotationProcessorConfigurationException e) {
-      assertThat(e).hasMessageContaining(CrashShieldConfigurationConstants.EXCEPTION_HANDLER_CLASS);
-    }
+    assertThatThrownBy(() -> parse(configFile))
+        .isInstanceOf(InvalidAnnotationProcessorConfigurationException.class)
+        .hasMessageContaining(CrashShieldConfigurationConstants.EXCEPTION_HANDLER_CLASS);
   }
 
   @Test
@@ -257,12 +228,9 @@ public class CrashShieldParametersInConfigurationFileTest {
             CrashShieldConfigurationConstants.SHOULD_PROCESS_VIEWS + " true",
             CrashShieldConfigurationConstants.SHOULD_PROCESS_CONSTRUCTOR + " true");
 
-    try {
-      parse(configFile);
-      fail();
-    } catch (InvalidAnnotationProcessorConfigurationException e) {
-      assertThat(e).hasMessageContaining(CrashShieldConfigurationConstants.EXCEPTION_HANDLER_CLASS);
-    }
+    assertThatThrownBy(() -> parse(configFile))
+        .isInstanceOf(InvalidAnnotationProcessorConfigurationException.class)
+        .hasMessageContaining(CrashShieldConfigurationConstants.EXCEPTION_HANDLER_CLASS);
   }
 
   @Test
@@ -278,12 +246,9 @@ public class CrashShieldParametersInConfigurationFileTest {
             CrashShieldConfigurationConstants.SHOULD_PROCESS_VIEWS + " true",
             CrashShieldConfigurationConstants.SHOULD_PROCESS_CONSTRUCTOR + " true");
 
-    try {
-      parse(configFile);
-      fail();
-    } catch (InvalidAnnotationProcessorConfigurationException e) {
-      assertThat(e).hasMessageContaining(CrashShieldConfigurationConstants.ENABLED);
-    }
+    assertThatThrownBy(() -> parse(configFile))
+        .isInstanceOf(InvalidAnnotationProcessorConfigurationException.class)
+        .hasMessageContaining(CrashShieldConfigurationConstants.ENABLED);
   }
 
   @Test
@@ -298,12 +263,9 @@ public class CrashShieldParametersInConfigurationFileTest {
             CrashShieldConfigurationConstants.SHOULD_PROCESS_VIEWS + " true",
             CrashShieldConfigurationConstants.SHOULD_PROCESS_CONSTRUCTOR + " true");
 
-    try {
-      parse(configFile);
-      fail();
-    } catch (InvalidAnnotationProcessorConfigurationException e) {
-      assertThat(e).hasMessageContaining(CrashShieldConfigurationConstants.ENABLED);
-    }
+    assertThatThrownBy(() -> parse(configFile))
+        .isInstanceOf(InvalidAnnotationProcessorConfigurationException.class)
+        .hasMessageContaining(CrashShieldConfigurationConstants.ENABLED);
   }
 
   @Test
@@ -318,12 +280,9 @@ public class CrashShieldParametersInConfigurationFileTest {
             CrashShieldConfigurationConstants.SHOULD_PROCESS_VIEWS + " true",
             CrashShieldConfigurationConstants.SHOULD_PROCESS_CONSTRUCTOR + " true");
 
-    try {
-      parse(configFile);
-      fail();
-    } catch (InvalidAnnotationProcessorConfigurationException e) {
-      assertThat(e).hasMessageContaining("xx");
-    }
+    assertThatThrownBy(() -> parse(configFile))
+        .isInstanceOf(InvalidAnnotationProcessorConfigurationException.class)
+        .hasMessageContaining("xx");
   }
 
   @Test
@@ -339,13 +298,9 @@ public class CrashShieldParametersInConfigurationFileTest {
             CrashShieldConfigurationConstants.SHOULD_PROCESS_VIEWS + " true",
             CrashShieldConfigurationConstants.SHOULD_PROCESS_CONSTRUCTOR + " false");
 
-    try {
-      parse(configFile);
-      fail();
-    } catch (InvalidAnnotationProcessorConfigurationException e) {
-      assertThat(e)
-          .hasMessageContaining(CrashShieldConfigurationConstants.SHOULD_PROCESS_CONSTRUCTOR);
-    }
+    assertThatThrownBy(() -> parse(configFile))
+        .isInstanceOf(InvalidAnnotationProcessorConfigurationException.class)
+        .hasMessageContaining(CrashShieldConfigurationConstants.SHOULD_PROCESS_CONSTRUCTOR);
   }
 
   @Test
@@ -360,13 +315,9 @@ public class CrashShieldParametersInConfigurationFileTest {
             CrashShieldConfigurationConstants.SHOULD_PROCESS_VIEWS + " true",
             CrashShieldConfigurationConstants.SHOULD_PROCESS_CONSTRUCTOR + " false true");
 
-    try {
-      parse(configFile);
-      fail();
-    } catch (InvalidAnnotationProcessorConfigurationException e) {
-      assertThat(e)
-          .hasMessageContaining(CrashShieldConfigurationConstants.SHOULD_PROCESS_CONSTRUCTOR);
-    }
+    assertThatThrownBy(() -> parse(configFile))
+        .isInstanceOf(InvalidAnnotationProcessorConfigurationException.class)
+        .hasMessageContaining(CrashShieldConfigurationConstants.SHOULD_PROCESS_CONSTRUCTOR);
   }
 
   @Test
@@ -381,12 +332,9 @@ public class CrashShieldParametersInConfigurationFileTest {
             CrashShieldConfigurationConstants.SHOULD_PROCESS_VIEWS + " true",
             CrashShieldConfigurationConstants.SHOULD_PROCESS_CONSTRUCTOR + " abc");
 
-    try {
-      parse(configFile);
-      fail();
-    } catch (InvalidAnnotationProcessorConfigurationException e) {
-      assertThat(e).hasMessageContaining("abc");
-    }
+    assertThatThrownBy(() -> parse(configFile))
+        .isInstanceOf(InvalidAnnotationProcessorConfigurationException.class)
+        .hasMessageContaining("abc");
   }
 
   @Test
@@ -402,12 +350,9 @@ public class CrashShieldParametersInConfigurationFileTest {
             CrashShieldConfigurationConstants.SHOULD_PROCESS_VIEWS + " true",
             CrashShieldConfigurationConstants.SHOULD_PROCESS_CONSTRUCTOR + " false");
 
-    try {
-      parse(configFile);
-      fail();
-    } catch (InvalidAnnotationProcessorConfigurationException e) {
-      assertThat(e).hasMessageContaining(CrashShieldConfigurationConstants.SHOULD_PROCESS_VIEWS);
-    }
+    assertThatThrownBy(() -> parse(configFile))
+        .isInstanceOf(InvalidAnnotationProcessorConfigurationException.class)
+        .hasMessageContaining(CrashShieldConfigurationConstants.SHOULD_PROCESS_VIEWS);
   }
 
   @Test
@@ -422,12 +367,9 @@ public class CrashShieldParametersInConfigurationFileTest {
             CrashShieldConfigurationConstants.SHOULD_PROCESS_VIEWS + " true false",
             CrashShieldConfigurationConstants.SHOULD_PROCESS_CONSTRUCTOR + " true");
 
-    try {
-      parse(configFile);
-      fail();
-    } catch (InvalidAnnotationProcessorConfigurationException e) {
-      assertThat(e).hasMessageContaining(CrashShieldConfigurationConstants.SHOULD_PROCESS_VIEWS);
-    }
+    assertThatThrownBy(() -> parse(configFile))
+        .isInstanceOf(InvalidAnnotationProcessorConfigurationException.class)
+        .hasMessageContaining(CrashShieldConfigurationConstants.SHOULD_PROCESS_VIEWS);
   }
 
   @Test
@@ -442,11 +384,8 @@ public class CrashShieldParametersInConfigurationFileTest {
             CrashShieldConfigurationConstants.SHOULD_PROCESS_VIEWS + " ffff",
             CrashShieldConfigurationConstants.SHOULD_PROCESS_CONSTRUCTOR + " true");
 
-    try {
-      parse(configFile);
-      fail();
-    } catch (InvalidAnnotationProcessorConfigurationException e) {
-      assertThat(e).hasMessageContaining("ffff");
-    }
+    assertThatThrownBy(() -> parse(configFile))
+        .isInstanceOf(InvalidAnnotationProcessorConfigurationException.class)
+        .hasMessageContaining("ffff");
   }
 }
