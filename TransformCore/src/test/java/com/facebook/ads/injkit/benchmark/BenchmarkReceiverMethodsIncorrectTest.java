@@ -8,7 +8,6 @@
 package com.facebook.ads.injkit.benchmark;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
 
 import com.facebook.ads.injkit.InvalidAnnotationProcessorConfigurationException;
 import com.facebook.ads.injkit.TransformationEnvironment;
@@ -103,7 +102,7 @@ public class BenchmarkReceiverMethodsIncorrectTest {
           .benchmarkReceiver(reporterClass)
           .done()
           .transformAndLoad();
-      fail();
+      assertThat(false).as("Expected InvalidAnnotationProcessorConfigurationException").isTrue();
     } catch (InvalidAnnotationProcessorConfigurationException e) {
       assertThat(e.getMessage()).contains(reporterClass.getName());
       if (failureText instanceof String) {
