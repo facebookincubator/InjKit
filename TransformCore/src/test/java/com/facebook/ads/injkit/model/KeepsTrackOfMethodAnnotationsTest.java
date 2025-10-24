@@ -8,7 +8,7 @@
 package com.facebook.ads.injkit.model;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import java.util.Collections;
 import org.junit.Before;
@@ -167,11 +167,8 @@ public class KeepsTrackOfMethodAnnotationsTest {
 
   @Test
   public void cannotGetAnnotationsOfUnknownMethod() {
-    try {
-      model.annotationsOfMethod("a/B", "noMethod", "()V", Opcodes.ACC_PROTECTED);
-      fail();
-    } catch (IllegalStateException e) {
-      // Expected.
-    }
+    assertThatThrownBy(
+            () -> model.annotationsOfMethod("a/B", "noMethod", "()V", Opcodes.ACC_PROTECTED))
+        .isInstanceOf(IllegalStateException.class);
   }
 }
