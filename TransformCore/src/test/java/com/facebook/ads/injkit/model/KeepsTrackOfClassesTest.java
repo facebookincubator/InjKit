@@ -8,7 +8,7 @@
 package com.facebook.ads.injkit.model;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -77,11 +77,6 @@ public class KeepsTrackOfClassesTest {
 
   @Test
   public void cannotGetSuperOnUnknownClass() {
-    try {
-      model.superClassOf("a");
-      fail();
-    } catch (IllegalStateException e) {
-      // Expected.
-    }
+    assertThatThrownBy(() -> model.superClassOf("a")).isInstanceOf(IllegalStateException.class);
   }
 }
