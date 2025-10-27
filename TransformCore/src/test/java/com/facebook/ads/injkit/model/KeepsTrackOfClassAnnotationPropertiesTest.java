@@ -8,8 +8,8 @@
 package com.facebook.ads.injkit.model;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.assertj.core.api.Assertions.entry;
-import static org.junit.Assert.fail;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -65,12 +65,9 @@ public class KeepsTrackOfClassAnnotationPropertiesTest {
 
   @Test
   public void obtainingPropertyOfNonExistingAnnotation() {
-    try {
-      model.annotationPropertyOfClass("my/Cls1", "LUnexistingAnnotation;", "foo");
-      fail();
-    } catch (IllegalStateException e) {
-      // Expected.
-    }
+    assertThatThrownBy(
+            () -> model.annotationPropertyOfClass("my/Cls1", "LUnexistingAnnotation;", "foo"))
+        .isInstanceOf(IllegalStateException.class);
   }
 
   @Test
