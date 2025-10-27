@@ -7,8 +7,7 @@
 
 package com.facebook.ads.injkit.crashshield;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -56,10 +55,10 @@ public class CrashShieldViewsInjectionTest {
     setBooleanFieldValueForView(instance, "throwsExceptionABefore", true);
     instance.measure(1, 1);
 
-    assertTrue(getBooleanFieldValueView(instance, "isMethodBBeforeException"));
-    assertFalse(getBooleanFieldValueView(instance, "isMethodBAfterException"));
-    assertTrue(getBooleanFieldValueView(instance, "isMethodABeforeException"));
-    assertFalse(getBooleanFieldValueView(instance, "isMethodAAfterException"));
+    assertThat(getBooleanFieldValueView(instance, "isMethodBBeforeException")).isTrue();
+    assertThat(getBooleanFieldValueView(instance, "isMethodBAfterException")).isFalse();
+    assertThat(getBooleanFieldValueView(instance, "isMethodABeforeException")).isTrue();
+    assertThat(getBooleanFieldValueView(instance, "isMethodAAfterException")).isFalse();
   }
 
   @Test
@@ -75,10 +74,10 @@ public class CrashShieldViewsInjectionTest {
     setBooleanFieldValueForView(instance, "throwsExceptionAAfter", true);
     instance.measure(1, 1);
 
-    assertTrue(getBooleanFieldValueView(instance, "isMethodBBeforeException"));
-    assertFalse(getBooleanFieldValueView(instance, "isMethodBAfterException"));
-    assertTrue(getBooleanFieldValueView(instance, "isMethodABeforeException"));
-    assertFalse(getBooleanFieldValueView(instance, "isMethodAAfterException"));
+    assertThat(getBooleanFieldValueView(instance, "isMethodBBeforeException")).isTrue();
+    assertThat(getBooleanFieldValueView(instance, "isMethodBAfterException")).isFalse();
+    assertThat(getBooleanFieldValueView(instance, "isMethodABeforeException")).isTrue();
+    assertThat(getBooleanFieldValueView(instance, "isMethodAAfterException")).isFalse();
   }
 
   @Test
@@ -94,10 +93,10 @@ public class CrashShieldViewsInjectionTest {
     setBooleanFieldValueForView(instance, "throwsExceptionBBefore", true);
     instance.measure(1, 1);
 
-    assertTrue(getBooleanFieldValueView(instance, "isMethodBBeforeException"));
-    assertFalse(getBooleanFieldValueView(instance, "isMethodBAfterException"));
-    assertFalse(getBooleanFieldValueView(instance, "isMethodABeforeException"));
-    assertFalse(getBooleanFieldValueView(instance, "isMethodAAfterException"));
+    assertThat(getBooleanFieldValueView(instance, "isMethodBBeforeException")).isTrue();
+    assertThat(getBooleanFieldValueView(instance, "isMethodBAfterException")).isFalse();
+    assertThat(getBooleanFieldValueView(instance, "isMethodABeforeException")).isFalse();
+    assertThat(getBooleanFieldValueView(instance, "isMethodAAfterException")).isFalse();
   }
 
   @Test
@@ -113,10 +112,10 @@ public class CrashShieldViewsInjectionTest {
     setBooleanFieldValueForView(instance, "throwsExceptionBAfter", true);
     instance.measure(1, 1);
 
-    assertTrue(getBooleanFieldValueView(instance, "isMethodBBeforeException"));
-    assertFalse(getBooleanFieldValueView(instance, "isMethodBAfterException"));
-    assertTrue(getBooleanFieldValueView(instance, "isMethodABeforeException"));
-    assertTrue(getBooleanFieldValueView(instance, "isMethodAAfterException"));
+    assertThat(getBooleanFieldValueView(instance, "isMethodBBeforeException")).isTrue();
+    assertThat(getBooleanFieldValueView(instance, "isMethodBAfterException")).isFalse();
+    assertThat(getBooleanFieldValueView(instance, "isMethodABeforeException")).isTrue();
+    assertThat(getBooleanFieldValueView(instance, "isMethodAAfterException")).isTrue();
   }
 
   @Test
@@ -134,8 +133,8 @@ public class CrashShieldViewsInjectionTest {
     r.run();
 
     // verify that call inside run() renamed from onMeasure() to safe_onMeasure()
-    assertFalse(((SafeView) fakeViewA).onMeasureCalled);
-    assertTrue(((SafeView) fakeViewA).safe_onMeasureCalled);
+    assertThat(((SafeView) fakeViewA).onMeasureCalled).isFalse();
+    assertThat(((SafeView) fakeViewA).safe_onMeasureCalled).isTrue();
   }
 
   public static void setBooleanFieldValueForView(
