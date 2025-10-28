@@ -7,8 +7,7 @@
 
 package com.facebook.ads.injkit.crashshield;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import android.annotation.SuppressLint;
 import android.os.AsyncTask;
@@ -54,10 +53,10 @@ public class CrashShieldViewListenersInjectionTest {
       throwsException = true;
     }
 
-    assertTrue(getBooleanFieldValue(instance, "isBeforeException"));
-    assertFalse(getBooleanFieldValue(instance, "isAfterException"));
+    assertThat(getBooleanFieldValue(instance, "isBeforeException")).isTrue();
+    assertThat(getBooleanFieldValue(instance, "isAfterException")).isFalse();
 
-    assertFalse(throwsException);
+    assertThat(throwsException).isFalse();
   }
 
   @Test
@@ -76,10 +75,10 @@ public class CrashShieldViewListenersInjectionTest {
       throwsPreException = true;
     }
 
-    assertTrue(getBooleanFieldValue(instance, "isPreExecuteBeforeException"));
-    assertFalse(getBooleanFieldValue(instance, "isPreExecuteAfterException"));
+    assertThat(getBooleanFieldValue(instance, "isPreExecuteBeforeException")).isTrue();
+    assertThat(getBooleanFieldValue(instance, "isPreExecuteAfterException")).isFalse();
 
-    assertFalse(throwsPreException);
+    assertThat(throwsPreException).isFalse();
   }
 
   @Test
@@ -98,10 +97,10 @@ public class CrashShieldViewListenersInjectionTest {
       throwsPostException = true;
     }
 
-    assertTrue(getBooleanFieldValue(instance, "isPostExecuteBeforeException"));
-    assertFalse(getBooleanFieldValue(instance, "isPostExecuteAfterException"));
+    assertThat(getBooleanFieldValue(instance, "isPostExecuteBeforeException")).isTrue();
+    assertThat(getBooleanFieldValue(instance, "isPostExecuteAfterException")).isFalse();
 
-    assertFalse(throwsPostException);
+    assertThat(throwsPostException).isFalse();
   }
 
   @Test
@@ -118,10 +117,10 @@ public class CrashShieldViewListenersInjectionTest {
       throwsException = true;
     }
 
-    assertTrue(getBooleanFieldValue(instance, "isOnClickABeforeException"));
-    assertFalse(getBooleanFieldValue(instance, "isOnClickAAfterException"));
+    assertThat(getBooleanFieldValue(instance, "isOnClickABeforeException")).isTrue();
+    assertThat(getBooleanFieldValue(instance, "isOnClickAAfterException")).isFalse();
 
-    assertFalse(throwsException);
+    assertThat(throwsException).isFalse();
   }
 
   @Test
@@ -133,10 +132,10 @@ public class CrashShieldViewListenersInjectionTest {
 
     instance.onClick(null);
 
-    assertTrue(getBooleanFieldValue(instance, "isOnClickBBeforeException"));
-    assertFalse(getBooleanFieldValue(instance, "isOnClickAAfterException"));
-    assertFalse(getBooleanFieldValue(instance, "isOnClickABeforeException"));
-    assertFalse(getBooleanFieldValue(instance, "isOnClickAAfterException"));
+    assertThat(getBooleanFieldValue(instance, "isOnClickBBeforeException")).isTrue();
+    assertThat(getBooleanFieldValue(instance, "isOnClickAAfterException")).isFalse();
+    assertThat(getBooleanFieldValue(instance, "isOnClickABeforeException")).isFalse();
+    assertThat(getBooleanFieldValue(instance, "isOnClickAAfterException")).isFalse();
   }
 
   @Test
@@ -149,12 +148,12 @@ public class CrashShieldViewListenersInjectionTest {
 
     instance.onClick(null);
 
-    assertFalse(getBooleanFieldValue(instance, "isOnClickABeforeException"));
-    assertFalse(getBooleanFieldValue(instance, "isOnClickAAfterException"));
-    assertTrue(getBooleanFieldValue(instance, "isOnClickBBeforeException"));
-    assertFalse(getBooleanFieldValue(instance, "isOnClickBAfterException"));
-    assertTrue(getBooleanFieldValue(instance, "isOnClickCBeforeException"));
-    assertFalse(getBooleanFieldValue(instance, "isOnClickCAfterException"));
+    assertThat(getBooleanFieldValue(instance, "isOnClickABeforeException")).isFalse();
+    assertThat(getBooleanFieldValue(instance, "isOnClickAAfterException")).isFalse();
+    assertThat(getBooleanFieldValue(instance, "isOnClickBBeforeException")).isTrue();
+    assertThat(getBooleanFieldValue(instance, "isOnClickBAfterException")).isFalse();
+    assertThat(getBooleanFieldValue(instance, "isOnClickCBeforeException")).isTrue();
+    assertThat(getBooleanFieldValue(instance, "isOnClickCAfterException")).isFalse();
   }
 
   private ClassLoader processClasses(Class<?>... processingClass) throws Exception {
