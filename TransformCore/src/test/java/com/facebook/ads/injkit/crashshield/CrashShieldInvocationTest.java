@@ -15,7 +15,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.List;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -86,7 +85,7 @@ public class CrashShieldInvocationTest {
       } catch (InvocationTargetException t) {
         throwsException = true;
       }
-      Assert.assertTrue(throwsException);
+      assertThat(throwsException).isTrue();
       return;
     }
 
