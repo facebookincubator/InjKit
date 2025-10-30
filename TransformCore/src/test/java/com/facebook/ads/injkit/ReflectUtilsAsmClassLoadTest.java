@@ -8,7 +8,7 @@
 package com.facebook.ads.injkit;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -33,12 +33,10 @@ public class ReflectUtilsAsmClassLoadTest {
     ClassNode node = new ClassNode();
     node.name = AsmNameUtils.classJavaNameToInternalName(TestClass.class.getName()) + "_";
 
-    try {
-      ReflectUtils.findClass(node, ReflectUtilsAsmClassLoadTest.class.getClassLoader());
-      fail();
-    } catch (AnnotationProcessingException e) {
-      assertThat(e.getMessage()).contains(node.name);
-    }
+    assertThatThrownBy(
+            () -> ReflectUtils.findClass(node, ReflectUtilsAsmClassLoadTest.class.getClassLoader()))
+        .isInstanceOf(AnnotationProcessingException.class)
+        .hasMessageContaining(node.name);
   }
 
   static class TestClass {}
