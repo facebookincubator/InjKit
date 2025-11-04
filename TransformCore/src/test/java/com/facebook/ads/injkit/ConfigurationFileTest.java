@@ -8,7 +8,7 @@
 package com.facebook.ads.injkit;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
+import static org.assertj.core.api.Assertions.fail;
 
 import java.io.File;
 import java.util.Collections;
@@ -44,7 +44,7 @@ public class ConfigurationFileTest {
 
     try {
       AnnotationProcessorConfiguration.parse(config, Collections.emptySet());
-      fail();
+      fail("Expected InvalidAnnotationProcessorConfigurationException to be thrown");
     } catch (InvalidAnnotationProcessorConfigurationException e) {
       assertThat(e).hasMessageContaining("foo");
     }
