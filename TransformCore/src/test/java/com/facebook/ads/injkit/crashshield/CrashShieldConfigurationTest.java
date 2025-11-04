@@ -8,7 +8,7 @@
 package com.facebook.ads.injkit.crashshield;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
+import static org.assertj.core.api.Assertions.fail;
 
 import com.facebook.ads.injkit.InvalidAnnotationProcessorConfigurationException;
 import com.facebook.ads.injkit.TransformationEnvironment;
@@ -77,7 +77,7 @@ public class CrashShieldConfigurationTest {
           .handler(className)
           .done()
           .transformAndLoad();
-      fail();
+      fail("Expected InvalidAnnotationProcessorConfigurationException to be thrown");
     } catch (InvalidAnnotationProcessorConfigurationException e) {
       for (String expectedError : expectedErrors) {
         assertThat(e).hasMessageContaining(expectedError);
