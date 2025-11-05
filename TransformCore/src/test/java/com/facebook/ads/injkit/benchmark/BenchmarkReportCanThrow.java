@@ -7,8 +7,7 @@
 
 package com.facebook.ads.injkit.benchmark;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import com.facebook.ads.injkit.TransformationEnvironment;
 import java.util.Arrays;
@@ -67,12 +66,9 @@ public class BenchmarkReportCanThrow {
             .transformAndLoad();
     CallTestClass cls = (CallTestClass) ldr.loadClass(TestClass.class.getName()).newInstance();
 
-    try {
-      cls.callSleep(sleepTime, throwException);
-      fail();
-    } catch (RuntimeException e) {
-      assertThat(e.getMessage()).isEqualTo(expectedMessage);
-    }
+    assertThatThrownBy(() -> cls.callSleep(sleepTime, throwException))
+        .isInstanceOf(RuntimeException.class)
+        .hasMessage(expectedMessage);
   }
 
   public interface CallTestClass {
