@@ -8,7 +8,6 @@
 package com.facebook.ads.injkit.benchmark;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
 
 import com.facebook.ads.injkit.AnnotationProcessingException;
 import com.facebook.ads.injkit.AsmNameUtils;
@@ -58,7 +57,7 @@ public class AnnotationConfigurationTest {
           .benchmarkReceiver(DummyBenchmarkReport.class)
           .done()
           .transformAndLoad();
-      fail();
+      assertThat(false).as("Expected AnnotationProcessingException to be thrown").isTrue();
     } catch (AnnotationProcessingException e) {
       StringBuilder all = new StringBuilder();
       for (Throwable t = e; t != null; t = t.getCause()) {
