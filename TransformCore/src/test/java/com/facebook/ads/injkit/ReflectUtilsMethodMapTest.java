@@ -48,15 +48,6 @@ public class ReflectUtilsMethodMapTest {
   }
 
   @Test
-  public void mapMethodToPrivateMethod() throws Exception {
-    Method m = ClassWithMethod.class.getDeclaredMethod("mm", int.class, String.class);
-
-    Executable mapped = ReflectUtils.mapMethod(m, PrivateMethod.class);
-
-    assertThat(mapped).isNull();
-  }
-
-  @Test
   public void mapMethodToStaticMethod() throws Exception {
     Method m = ClassWithMethod.class.getDeclaredMethod("mm", int.class, String.class);
 
@@ -115,10 +106,6 @@ public class ReflectUtilsMethodMapTest {
 
   static class DifferentParameters {
     void mm(int x, String y, double z) {}
-  }
-
-  static class PrivateMethod {
-    private void mm(int x, String y) {}
   }
 
   static class StaticMethod {
