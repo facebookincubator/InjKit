@@ -100,8 +100,4 @@ class ClassFileProcessorImpl implements ClassFileProcessor {
       injector.process(node, model);
     }
   }
-
-  private void preprocessClassNode(ClassNode node) {
-    model.update(node);
-  }
 }
