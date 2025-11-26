@@ -188,10 +188,4 @@ public class CrashShieldConfigurationTest {
 
     public static void methodFinished(Object obj) {}
   }
-
-  private static class BadHandler2 {
-    public void handleThrowable(Object obj, Throwable t) {}
-
-    public static void methodFinished(Object obj) {}
-  }
 }
