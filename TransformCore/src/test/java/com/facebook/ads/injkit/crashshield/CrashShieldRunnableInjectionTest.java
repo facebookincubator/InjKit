@@ -7,9 +7,8 @@
 
 package com.facebook.ads.injkit.crashshield;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.fail;
 
 import android.annotation.SuppressLint;
 import com.facebook.ads.injkit.TransformationEnvironment;
@@ -45,11 +44,11 @@ public class CrashShieldRunnableInjectionTest {
     try {
       instance.run();
     } catch (Throwable t) {
-      fail();
+      fail("");
     }
 
-    assertTrue(getBooleanFieldValue(instance, "isBeforeException"));
-    assertFalse(getBooleanFieldValue(instance, "isAfterException"));
+    assertThat(getBooleanFieldValue(instance, "isBeforeException")).isTrue();
+    assertThat(getBooleanFieldValue(instance, "isAfterException")).isFalse();
   }
 
   @Test
@@ -66,9 +65,9 @@ public class CrashShieldRunnableInjectionTest {
       throwsException = true;
     }
 
-    assertTrue(throwsException);
-    assertTrue(getBooleanFieldValue(instance, "isBeforeException"));
-    assertFalse(getBooleanFieldValue(instance, "isAfterException"));
+    assertThat(throwsException).isTrue();
+    assertThat(getBooleanFieldValue(instance, "isBeforeException")).isTrue();
+    assertThat(getBooleanFieldValue(instance, "isAfterException")).isFalse();
   }
 
   private ClassLoader processClasses(Class<?>... processingClass) throws Exception {
